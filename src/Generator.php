@@ -29,6 +29,12 @@ final class Generator
 	}
 
 
+	public function renderHtml(): string
+	{
+		return '';
+	}
+
+
 	/**
 	 * Generator::createFromArray()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -52,7 +58,7 @@ final class Generator
 	final public function toArray(): array
 	{
 		return [
-		'invoice' => $this->getInvoice(),
+		'invoice' => $this->getInvoice()->toArray(),
 		];
 	}
 
@@ -60,6 +66,7 @@ final class Generator
 	/**
 	 * Generator::getInvoice()
 	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return Invoice
 	 */
 	final public function getInvoice(): Invoice
 	{
@@ -70,11 +77,13 @@ final class Generator
 	/**
 	 * Generator::setInvoice()
 	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param \Hurah\Invoice\Data\Invoice $invoice
+	 * @param Invoice $invoice
+	 * @return self
 	 */
-	final public function setInvoice(Invoice $invoice): void
+	final public function setInvoice(Invoice $invoice): self
 	{
 		$this->invoice = $invoice;
+		return $this;
 	}
 
 
