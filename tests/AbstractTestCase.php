@@ -16,6 +16,7 @@ abstract class AbstractTestCase extends TestCase
 		$oCustomer = new Invoice\Customer();
         $oCustomer->setVatId('19495634');
         $oCustomer->setCustomerNumber('99999');
+        $oCustomer->setCustomerName('Anton Boutkam');
 
         $oInvoiceAddress = new Invoice\Address();
         $oInvoiceAddress->setName('Nui Boutkam');
