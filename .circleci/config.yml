@@ -14,7 +14,9 @@ jobs:
       - run: sudo apt update #  sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo apt install -y software-properties-common apt-utils curl zip git libxml2 libxml2-dev
       - run: sudo apt update
-      - run: sudo docker-php-ext-install bcmath zip
+      - run: sudo docker-php-ext-install bcmath zip wget
+      - run: wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb
+      - run: sudo apt install -y ./wkhtmltox_0.12.6-1.buster_amd64.deb
 
       # Download and cache dependencies
       - restore_cache:
