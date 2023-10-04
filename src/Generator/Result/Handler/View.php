@@ -23,6 +23,7 @@ final class View implements ResultHandlerInterface
     public function handle(string $document):string
     {
         header("Content-type: {$this->type->getContentType()}");
+        echo $document;
         return $document;
     }
 }
