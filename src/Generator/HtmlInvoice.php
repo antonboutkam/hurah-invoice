@@ -20,6 +20,7 @@ final class HtmlInvoice
 	}
 
 
+
 	public function render(): Html
 	{
         $loader = new \Twig\Loader\ArrayLoader([
