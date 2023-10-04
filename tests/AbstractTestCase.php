@@ -2,17 +2,17 @@
 namespace Test\Hurah\Invoice;
 
 use Hurah\Invoice\Data\Invoice;
-use Hurah\Invoice\Generator;
+use Hurah\Invoice\Structure;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTestCase extends TestCase
 {
-	protected Generator $generator;
+	protected Structure $structure;
 
 
 	public function setUp(): void
 	{
-		$this->generator = new Generator();
+		$this->structure = new Structure();
 		$oCustomer = new Invoice\Customer();
         $oCustomer->setVatId('19495634');
         $oCustomer->setCustomerNumber('99999');
@@ -70,12 +70,12 @@ abstract class AbstractTestCase extends TestCase
 		    ->addAddressLine1('Amstelstraat 1')
 		    ->addAddressLine2('1421AW UITHOORN');
 		$oInvoice = new Invoice();
-		$oInvoice->addNumber('123213')
-		    ->addCustomer($oCustomer)
-		    ->addOrder($oOrder)
-		    ->addOwnCompany($oCompany);
+		$oInvoice->setNumber('123213')
+		    ->setCustomer($oCustomer)
+		    ->setOrder($oOrder)
+		    ->setOwnCompany($oCompany);
 
-		$this->generator->setInvoice($oInvoice);
+		$this->structure->setInvoice($oInvoice);
 	}
 
 

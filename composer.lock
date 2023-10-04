@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d90a2a151cfe911ffd33cdf6b1c70dd2",
+    "content-hash": "7bc371dadf27b2cf482624b17d199c40",
     "packages": [
         {
             "name": "hurah/data-types",

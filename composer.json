@@ -16,7 +16,7 @@
     "hurah/logger": "^v1",
     "twig/twig": "3.0.0",
     "psr/log": "^1.1",
-    "knplabs/knp-snappy": "^1.2.1"
+    "knplabs/knp-snappy": "^1.4"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.3@dev"

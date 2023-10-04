@@ -5,7 +5,7 @@ use Hurah\Invoice\Data\Invoice\Customer;
 use Hurah\Invoice\Data\Invoice\Order;
 use Hurah\Invoice\Data\Invoice\Company;
 
-final class Invoice
+final class Invoice implements InvoiceInterface
 {
 	private Order $order;
 	private Company $supplier;
@@ -88,21 +88,9 @@ final class Invoice
 	 * Invoice::setOrder()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param Order $order
-	 * @return void
-	 */
-	final public function setOrder(Order $order): void
-	{
-		$this->order = $order;
-	}
-
-
-	/**
-	 * Invoice::addOrder()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param Order $order
 	 * @return self
 	 */
-	final public function addOrder(Order $order): self
+	final public function setOrder(Order $order): self
 	{
 		$this->order = $order;
 		return $this;
@@ -135,21 +123,9 @@ final class Invoice
 	 * Invoice::setNumber()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param string $number
-	 * @return void
-	 */
-	final public function setNumber(string $number): void
-	{
-		$this->number = $number;
-	}
-
-
-	/**
-	 * Invoice::addNumber()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $number
 	 * @return self
 	 */
-	final public function addNumber(string $number): self
+	final public function setNumber(string $number): self
 	{
 		$this->number = $number;
 		return $this;
@@ -171,33 +147,9 @@ final class Invoice
 	 * Invoice::setOwnCompany()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param Company $ownCompany
-	 * @return void
-	 */
-	final public function setOwnCompany(Company $ownCompany): void
-	{
-		$this->ownCompany = $ownCompany;
-	}
-
-
-	/**
-	 * Invoice::setCustomer()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param Customer $customer
-	 * @return void
-	 */
-	final public function setCustomer(Customer $customer): void
-	{
-		$this->customer = $customer;
-	}
-
-
-	/**
-	 * Invoice::addOwnCompany()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param Company $ownCompany
 	 * @return self
 	 */
-	final public function addOwnCompany(Company $ownCompany): self
+	final public function setOwnCompany(Company $ownCompany): self
 	{
 		$this->ownCompany = $ownCompany;
 		return $this;
@@ -205,12 +157,12 @@ final class Invoice
 
 
 	/**
-	 * Invoice::addCustomer()
+	 * Invoice::setCustomer()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param Customer $customer
 	 * @return self
 	 */
-	final public function addCustomer(Customer $customer): self
+	final public function setCustomer(Customer $customer): self
 	{
 		$this->customer = $customer;
 		return $this;
