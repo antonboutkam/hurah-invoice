@@ -24,6 +24,6 @@ final class View implements ResultHandlerInterface
     {
         header("Content-type: {$this->type->getContentType()}");
         echo $document;
-        return $document;
+        exit();
     }
 }
