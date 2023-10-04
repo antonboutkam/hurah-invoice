@@ -10,7 +10,7 @@ final class Pdf implements InvoiceDocumentTypeInterface
 {
 	private string $contentType = 'application/pdf';
 	private string $wkhtmltopdfbin = '/usr/local/bin/wkhtmltopdf';
-	private string $tmpdir = '/usr/local/bin/wkhtmltopdf';
+	private string $tmpdir = '/tmp';
 
 
 	/**

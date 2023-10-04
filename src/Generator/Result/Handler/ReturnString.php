@@ -6,20 +6,22 @@ use Hurah\Invoice\Generator\Result\ResultHandlerInterface;
 
 final class ReturnString implements ResultHandlerInterface
 {
-	private string $document;
+
 
     /**
      * Download::__construct()
      * @param string $document
      * @param InvoiceDocumentTypeInterface $type
      */
-    public function __construct(string $document, InvoiceDocumentTypeInterface $type)
+    public function __construct(){}
+
+    public function setType(InvoiceDocumentTypeInterface $type)
     {
-        $this->document = $document;
+
     }
 
-    public function handle():string
+    public function handle(string $document):string
     {
-        return $this->document;
+        return $document;
     }
 }

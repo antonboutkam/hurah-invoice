@@ -6,25 +6,23 @@ use Hurah\Invoice\Generator\Result\ResultHandlerInterface;
 
 final class View implements ResultHandlerInterface
 {
-	private string $document;
     private InvoiceDocumentTypeInterface $type;
 
 
+    public function setType(InvoiceDocumentTypeInterface $type)
+    {
+        $this->type = $type;
+    }
     /**
      * Download::__construct()
      * @param string $document
      * @param InvoiceDocumentTypeInterface $type
      */
-    public function __construct(string $document, InvoiceDocumentTypeInterface $type)
-    {
-        $this->document = $document;
-        $this->type = $type;
-    }
+    public function __construct(){}
 
-    public function handle():string
+    public function handle(string $document):string
     {
         header("Content-type: {$this->type->getContentType()}");
-        echo $this->document;
-        return $this->document;
+        return $document;
     }
 }

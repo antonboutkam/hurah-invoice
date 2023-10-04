@@ -1,9 +1,14 @@
 <?php
 namespace Hurah\Invoice;
 
+use Hurah\Invoice\Generator\Document\InvoiceDocumentTypeInterface;
 use Hurah\Invoice\Generator\Document\InvoiceDocumentTypeInterface as Type;
+use Hurah\Invoice\Generator\Document\Type\Pdf;
 use Hurah\Invoice\Generator\HtmlInvoice;
+use Hurah\Invoice\Generator\Result\Handler\Download;
 use Hurah\Invoice\Generator\Result\ResultHandlerInterface as ResultHandler;
+use Hurah\Types\Exception\InvalidArgumentException;
+use Hurah\Types\Type\Path;
 
 final class InvoiceBuilder
 {
@@ -36,15 +41,37 @@ final class InvoiceBuilder
 		return $new;
 	}
 
-
-	public static function init(StructureInterface $invoiceStructure):self
+    /**
+     * @throws InvalidArgumentException
+     */
+    public static function init(StructureInterface $invoiceStructure, Type $type = null, ResultHandler $handler = null):self
 	{
+        $oCurrentDir = Path::make(__DIR__)
+                        ->extend('Layout', 'invoice.twig');
+
 		$new = new self();
 		$new->setInvoiceStructure($invoiceStructure);
+        $new->setTwigTemplate($oCurrentDir->contents());
+        if(!$type)
+        {
+            $type = new Pdf();
+        }
+        $new->setInvoiceType($type);
+
+        if(!$handler)
+        {
+            $handler = new Download();
+        }
+        $new->setHandler($handler);
+
         return $new;
 	}
 
-
+    final public function setInvoiceType(InvoiceDocumentTypeInterface $type):self
+    {
+        $this->invoiceType = $type;
+        return $this;
+    }
 	/**
 	 * InvoiceBuilder::setInvoiceStructure()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -63,7 +90,8 @@ final class InvoiceBuilder
 		$oHtmlInvoice = new HtmlInvoice($this->invoiceStructure, $this->twigTemplate);
 		$oHtml = $oHtmlInvoice->render();
 		$oMixedInvoice = $this->invoiceType->convert($oHtml);
-		return $this->handler->handle();
+        $this->handler->setType($this->invoiceType);
+		return $this->handler->handle($oMixedInvoice);
 	}
 
 
@@ -79,21 +107,13 @@ final class InvoiceBuilder
 		return $this;
 	}
 
-
-	/**
-	 * InvoiceBuilder::setInvoiceType()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param Type $invoiceType
-	 * @return self
-	 */
-	final public function setInvoiceType(Type $invoiceType): self
-	{
-		$this->invoiceType = $invoiceType;
-		return $this;
-	}
+    final public function getTwigTemplate(): string
+    {
+        return $this->twigTemplate;
+    }
 
 
-	/**
+    /**
 	 * InvoiceBuilder::setHandler()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param ResultHandler $handler

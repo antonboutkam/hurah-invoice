@@ -8,6 +8,7 @@ final class OrderItem
 	private float $unitPrice;
 	private float $quantity;
 	private int $vat;
+	private string $unit;
 
 
 	/**
@@ -18,6 +19,7 @@ final class OrderItem
 		string $description,
 		string $subDescription,
 		float $unitPrice,
+		string $unit,
 		float $quantity,
 		int $vat
 	): self {
@@ -25,6 +27,7 @@ final class OrderItem
 		$new->description = $description;
 		$new->subDescription = $subDescription;
 		$new->unitPrice = $unitPrice;
+		$new->unit = $unit;
 		$new->quantity = $quantity;
 		$new->vat = $vat;
 		return $new;
@@ -43,6 +46,7 @@ final class OrderItem
 		$new->setDescription($array['description']);
 		$new->setSubDescription($array['subDescription']);
 		$new->setUnitPrice($array['unitPrice']);
+		$new->setUnit($array['unit']);
 		$new->setQuantity($array['quantity']);
 		$new->setVat($array['vat']);
 		return $new;
@@ -60,6 +64,7 @@ final class OrderItem
 		'description' => $this->getDescription(),
 		'subDescription' => $this->getSubDescription(),
 		'unitPrice' => $this->getUnitPrice(),
+		'unit' => $this->getUnit(),
 		'quantity' => $this->getQuantity(),
 		'vat' => $this->getVat(),
 		];
@@ -182,6 +187,30 @@ final class OrderItem
 	final public function setVat(int $vat): self
 	{
 		$this->vat = $vat;
+		return $this;
+	}
+
+
+	/**
+	 * OrderItem::getUnit()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return string
+	 */
+	final public function getUnit(): string
+	{
+		return $this->unit;
+	}
+
+
+	/**
+	 * OrderItem::setUnit()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param string $unit
+	 * @return self
+	 */
+	final public function setUnit(string $unit): self
+	{
+		$this->unit = $unit;
 		return $this;
 	}
 }

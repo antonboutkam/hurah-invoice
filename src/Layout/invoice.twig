@@ -1,0 +1,42 @@
+<html lang="nl">
+
+<head>
+<title></title>
+</head>
+<body>
+<h1>{{ invoice.getNumber() }}</h1>
+<p>
+	<table>
+		<thead>
+
+		</thead>
+		<tbody>
+			{% for orderItem in invoice.getOrder().getOrderItems() %}
+				<tr>
+					<td>
+						{{ orderItem.gtDescription() }}
+						{{ orderItem.getSubDescription() }}
+					</td>
+					<td>
+						{{ orderItem.getUnitPrice() }}
+						{{ orderItem.getUnitUnit() }}
+					</td>
+					<td>
+						{{ orderItem.getQuantity() }}
+					</td>
+					<td>
+						{{ orderItem.getVat() }}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+</table>
+
+
+
+
+
+
+</body>
+
+</html>

@@ -51,6 +51,7 @@ abstract class AbstractTestCase extends TestCase
 		$oOrderItem->setDescription('xxx');
 		$oOrderItem->setSubDescription('yyy');
         $oOrderItem->setQuantity(1);
+        $oOrderItem->setUnit('stuk');
         $oOrderItem->setUnitPrice(5.10);
 		$oOrderItem->setVat(21);
 		$oOrderItemCollection = new Invoice\Order\OrderItemCollection();

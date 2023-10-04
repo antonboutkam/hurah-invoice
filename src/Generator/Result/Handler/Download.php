@@ -6,7 +6,6 @@ use Hurah\Invoice\Generator\Result\ResultHandlerInterface;
 
 final class Download implements ResultHandlerInterface
 {
-	private string $document;
     private InvoiceDocumentTypeInterface $type;
 
 	/**
@@ -14,17 +13,17 @@ final class Download implements ResultHandlerInterface
      * @param string $document
      * @param InvoiceDocumentTypeInterface $type
      */
-	public function __construct(string $document, InvoiceDocumentTypeInterface $type)
-	{
-        $this->document = $document;
-        $this->type = $type;
-	}
+	public function __construct(){}
 
-    public function handle():string
+    public function setType(InvoiceDocumentTypeInterface $type)
+    {
+        $this->type = $type;
+    }
+    public function handle(string $document):string
     {
         header("Content-type: {$this->type->getContentType()}");
         header('Content-Disposition: attachment; filename="invoice.pdf"');
-
-        return $this->document;
+        echo $document;
+        return $document;
     }
 }
