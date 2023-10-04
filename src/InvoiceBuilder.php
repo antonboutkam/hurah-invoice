@@ -116,7 +116,7 @@ final class InvoiceBuilder
     /**
 	 * InvoiceBuilder::setHandler()
 	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param ResultHandler $handler
+	 * @param ResultHandler $handler an instance of Download, ReturnString or View
 	 * @return self
 	 */
 	final public function setHandler(ResultHandler $handler): self
