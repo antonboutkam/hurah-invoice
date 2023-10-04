@@ -23,7 +23,7 @@ final class Html implements InvoiceDocumentTypeInterface
 
 	public function convert(HtmlDataType $input): string
 	{
-		return $input;
+		return $input->getValue();
 	}
 
 
