@@ -37,10 +37,11 @@ final class InvoiceBuilder
 	}
 
 
-	public static function init(StructureInterface $invoiceStructure)
+	public static function init(StructureInterface $invoiceStructure):self
 	{
 		$new = new self();
 		$new->setInvoiceStructure($invoiceStructure);
+        return $new;
 	}
 
 
