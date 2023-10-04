@@ -56,7 +56,7 @@ final class InvoiceBuilder
         {
             $type = new Pdf();
         }
-        $new->setInvoiceType($type);
+        $new->setDocumentType($type);
 
         if(!$handler)
         {
@@ -67,7 +67,7 @@ final class InvoiceBuilder
         return $new;
 	}
 
-    final public function setInvoiceType(InvoiceDocumentTypeInterface $type):self
+    final public function setDocumentType(InvoiceDocumentTypeInterface $type):self
     {
         $this->invoiceType = $type;
         return $this;

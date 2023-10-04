@@ -30,7 +30,7 @@ class InvoiceBuilderTest extends AbstractTestCase
         $this->assertEquals('application/pdf', $mimeType, 'Type: ' . $mimeType);
         $this->assertTrue(strlen($sPdfDocument) > 30);
 
-        $oInvoiceBuilder->setInvoiceType($type);
+        $oInvoiceBuilder->setDocumentType($type);
         $oInvoiceBuilder->setHandler(new ReturnString());
         $sHtmlDocument = $oInvoiceBuilder->makeInvoice();
         file_put_contents($sFileName, $sHtmlDocument);
