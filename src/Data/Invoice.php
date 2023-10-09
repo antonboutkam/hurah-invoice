@@ -2,6 +2,7 @@
 namespace Hurah\Invoice\Data;
 
 use Hurah\Invoice\Data\Invoice\Customer;
+use Hurah\Invoice\Data\Invoice\Note;
 use Hurah\Invoice\Data\Invoice\Order;
 use Hurah\Invoice\Data\Invoice\Company;
 
@@ -11,7 +12,10 @@ final class Invoice implements InvoiceInterface
 	private Company $supplier;
 	private Customer $customer;
 	private string $number;
+    private ?string $customerReference;
 	private Company $ownCompany;
+    private ?Note $customerNote;
+    private ?Note $ourNote;
 
 
 	/**
@@ -26,13 +30,16 @@ final class Invoice implements InvoiceInterface
 	 * Invoice::create()
 	 * @generate [properties, getters, setters, adders, createFromArray, toArray]
 	 */
-	public static function create(string $number, Order $order, Company $ownCompany, Customer $customer): self
+	public static function create(string $number, Order $order, Company $ownCompany, Customer $customer, Note $customerNote = null, Note $ourNote = null, ?string $customerReference = null): self
 	{
 		$new = new self();
 		$new->number = $number;
 		$new->order = $order;
 		$new->ownCompany = $ownCompany;
 		$new->customer = $customer;
+        $new->customerNote = $customerNote;
+        $new->ourNote = $ourNote;
+        $new->customerReference = $customerReference;
 		return $new;
 	}
 
@@ -83,7 +90,6 @@ final class Invoice implements InvoiceInterface
 		return $this->order;
 	}
 
-
 	/**
 	 * Invoice::setOrder()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -96,7 +102,6 @@ final class Invoice implements InvoiceInterface
 		return $this;
 	}
 
-
 	/**
 	 * Invoice::getCustomer()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -107,7 +112,6 @@ final class Invoice implements InvoiceInterface
 		return $this->customer;
 	}
 
-
 	/**
 	 * Invoice::getNumber()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -117,6 +121,15 @@ final class Invoice implements InvoiceInterface
 	{
 		return $this->number;
 	}
+    /**
+     * Invoice::getCustomerReference()
+     * This method is automatically generated, as long as it is marked final it will be generated
+     * @return string
+     */
+    final public function getCustomerReference(): string
+    {
+        return $this->customerReference;
+    }
 
 
 	/**
@@ -167,4 +180,24 @@ final class Invoice implements InvoiceInterface
 		$this->customer = $customer;
 		return $this;
 	}
+    /**
+     * Invoice::getCustomerNote()
+     * This method is automatically generated, as long as it is marked final it will be generated
+     * @return ?Note
+     */
+    final public function getCustomerNote(): ?Note
+    {
+        return $this->customerNote;
+    }
+
+    /**
+     * Invoice::getOurNote()
+     * This method is automatically generated, as long as it is marked final it will be generated
+     * @return ?Note
+     */
+    final public function getOurNote(): ?Note
+    {
+        return $this->ourNote;
+    }
+
 }

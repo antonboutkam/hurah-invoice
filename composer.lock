@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "388c97e2a0f0c0a8fafe54ad8c31b806",
+    "content-hash": "eebfe20a0c7fda37a5493f7ffe445515",
     "packages": [
         {
             "name": "hurah/data-types",
-            "version": "v1.0.120",
+            "version": "v1.0.123",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonboutkam/data-types.git",
-                "reference": "58455e43e5f3aa56c45bde4e0749a9d5e43b0dfe"
+                "reference": "4283a4479528f8aab81b6454134d9aa952b5f262"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonboutkam/data-types/zipball/58455e43e5f3aa56c45bde4e0749a9d5e43b0dfe",
-                "reference": "58455e43e5f3aa56c45bde4e0749a9d5e43b0dfe",
+                "url": "https://api.github.com/repos/antonboutkam/data-types/zipball/4283a4479528f8aab81b6454134d9aa952b5f262",
+                "reference": "4283a4479528f8aab81b6454134d9aa952b5f262",
                 "shasum": ""
             },
             "require": {
@@ -52,9 +52,9 @@
             "description": "Collection of general purpose data types, corresponding collections, validators, utilities and some control statements represented by objects to allow more strict type checking",
             "support": {
                 "issues": "https://github.com/antonboutkam/data-types/issues",
-                "source": "https://github.com/antonboutkam/data-types/tree/v1.0.120"
+                "source": "https://github.com/antonboutkam/data-types/tree/v1.0.123"
             },
-            "time": "2023-10-02T12:59:37+00:00"
+            "time": "2023-10-09T12:20:47+00:00"
         },
         {
             "name": "hurah/logger",
@@ -2643,6 +2643,8 @@
     "platform": {
         "php": "^7.4"
     },
-    "platform-dev": [],
+    "platform-dev": {
+        "ext-fileinfo": "*"
+    },
     "plugin-api-version": "2.2.0"
 }

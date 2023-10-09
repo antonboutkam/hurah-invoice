@@ -7,7 +7,7 @@ use Hurah\Invoice\Data\InvoiceInterface;
 final class Structure implements StructureInterface
 {
 	private InvoiceInterface $invoice;
-
+    private Invoice\Environment $environment;
 
 	/**
 	 * Generator::__construct()
@@ -25,10 +25,16 @@ final class Structure implements StructureInterface
         $this->invoice = $invoice;
         return $this;
     }
+    public function setEnvironment(Invoice\Environment $environment):self
+    {
+        $this->environment = $environment;
+        return $this;
+    }
 
     public function toArray():array
     {
         return [
+            'environment' => $this->environment->toArray(),
             'invoice' => $this->invoice->toArray()
         ];
 
