@@ -18,6 +18,23 @@ final class Environment
     {
     }
 
+    public function __call(string $name, array $arguments)
+    {
+        if (strpos($name, 'get') === 0) {
+
+            $camelName = str_replace('get', '', $name);
+            $snakeName = $this->camelCaseToSnakeCase($camelName);
+
+            if (isset($this->extraArguments[$snakeName])) {
+                return $this->extraArguments[$snakeName];
+            } else {
+                throw new MethodNotImplementedException("{$camelName} call to undefined array index {$snakeName} ");
+            }
+        }
+        throw new MethodNotImplementedException("{$name}");
+
+    }
+
     public static function init(string $assetsHostname, string $fileHostname, array $aExtraArguments = []): self
     {
         $new = new self();
@@ -44,28 +61,6 @@ final class Environment
         return $new;
     }
 
-    public function __call(string $name, array $arguments)
-    {
-        if (strpos($name, 'get') === 0) {
-
-            $camelName = str_replace('get', '', $name);
-            $snakeName = $this->camelCaseToSnakeCase($camelName);
-
-            if (isset($this->extraArguments[$snakeName])) {
-                return $this->extraArguments[$snakeName];
-            } else {
-                throw new MethodNotImplementedException("{$camelName} call to undefined array index {$snakeName} ");
-            }
-        }
-        throw new MethodNotImplementedException("{$name}");
-
-    }
-
-    private function camelCaseToSnakeCase($string): string
-    {
-        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $string));
-    }
-
     /**
      * Environment::toArray()
      * This method is automatically generated, as long as it is marked final it will be generated
@@ -78,7 +73,6 @@ final class Environment
             'fileHostname' => (string)$this->getFileHostname(),
         ], $this->getExtraArguments());
     }
-
 
     /**
      * Environment::getAssetsHostname()
@@ -146,25 +140,8 @@ final class Environment
         return $this;
     }
 
-    /**
-     * Environment::getAExtraArguments()
-     * This method is automatically generated, as long as it is marked final it will be generated
-     * @return array
-     */
-    final public function getAExtraArguments(): array
+    private function camelCaseToSnakeCase($string): string
     {
-        return $this->extraArguments;
-    }
-
-    /**
-     * Environment::setAExtraArguments()
-     * This method is automatically generated, as long as it is marked final it will be generated
-     * @param array $aExtraArguments
-     * @return self
-     */
-    final public function setAExtraArguments(array $aExtraArguments): self
-    {
-        $this->extraArguments = $aExtraArguments;
-        return $this;
+        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $string));
     }
 }
