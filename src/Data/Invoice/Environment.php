@@ -9,7 +9,7 @@ final class Environment
 {
     private DnsName $assetsHostname;
     private DnsName $fileHostname;
-    private array $extraArguments;
+    private array $extraArguments = [];
 
     /**
      * Environment::__construct()

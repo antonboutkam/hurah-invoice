@@ -3,6 +3,7 @@ namespace Test\Hurah\Invoice;
 
 use Hurah\Invoice\Data\Invoice;
 use Hurah\Invoice\Structure;
+use Hurah\Types\Type\DnsName;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTestCase extends TestCase
@@ -13,6 +14,12 @@ abstract class AbstractTestCase extends TestCase
 	public function setUp(): void
 	{
 		$this->structure = new Structure();
+
+        $oEnvironment = new Invoice\Environment();
+        $this->structure->setEnvironment($oEnvironment);
+
+        $oEnvironment->setAssetsHostname(new DnsName('antonboutkam.nl'));
+        $oEnvironment->setFileHostname(new DnsName('static.antonboutkam.nl'));
 		$oCustomer = new Invoice\Customer();
         $oCustomer->setVatId('19495634');
         $oCustomer->setCustomerNumber('99999');
