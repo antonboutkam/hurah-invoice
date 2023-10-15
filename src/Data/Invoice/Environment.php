@@ -10,6 +10,10 @@ final class Environment
     private DnsName $assetsHostname;
     private DnsName $fileHostname;
     private array $extraArguments = [];
+    private array $twigConfig = [
+        'cache' => "/tmp",
+        'debug' => false,
+    ];
 
     /**
      * Environment::__construct()
@@ -138,6 +142,15 @@ final class Environment
     {
         $this->extraArguments = $extraArguments;
         return $this;
+    }
+
+    final public function setTwigConfig(array $aConfig)
+    {
+        $this->twigConfig = $aConfig;
+    }
+    final public function getTwigConfig():array
+    {
+        return $this->twigConfig;
     }
 
     private function camelCaseToSnakeCase($string): string

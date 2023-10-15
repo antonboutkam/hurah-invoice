@@ -6,7 +6,7 @@ use Hurah\Invoice\Data\Invoice;
 use Hurah\Invoice\Generator\Document\Type\Pdf;
 use Hurah\Invoice\Generator\Result\Handler\ReturnString;
 use Hurah\Invoice\InvoiceBuilder;
-use Hurah\Types\Type\Html;
+
 
 class InvoiceBuilderTest extends AbstractTestCase
 {

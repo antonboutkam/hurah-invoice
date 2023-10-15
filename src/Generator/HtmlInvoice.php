@@ -26,7 +26,10 @@ final class HtmlInvoice
         $loader = new \Twig\Loader\ArrayLoader([
             'invoice.twig' => $this->twigTemplate,
         ]);
-        $twig = new \Twig\Environment($loader);
+
+        $config = $this->invoiceStructure->getEnvironment()->getTwigConfig();
+
+        $twig = new \Twig\Environment($loader, $config);
 
         return new Html($twig->render('invoice.twig', ['structure' => $this->invoiceStructure]));
 	}
