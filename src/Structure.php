@@ -30,6 +30,10 @@ final class Structure implements StructureInterface
         $this->environment = $environment;
         return $this;
     }
+    public function getEnvironment():Invoice\Environment
+    {
+        return $this->environment;
+    }
 
     public function toArray():array
     {
