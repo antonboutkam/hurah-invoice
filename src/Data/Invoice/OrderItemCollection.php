@@ -1,7 +1,6 @@
 <?php
-namespace Hurah\Invoice\Data\Invoice\Order;
+namespace Hurah\Invoice\Data\Invoice;
 
-use Hurah\Invoice\Data\Invoice\Order\OrderItem;
 use Hurah\Types\Type\AbstractCollectionDataType;
 
 class OrderItemCollection extends AbstractCollectionDataType
@@ -9,11 +8,11 @@ class OrderItemCollection extends AbstractCollectionDataType
     public static function create(...$oOrderItem):self
     {
         $oCollection = new OrderItemCollection();
-        
+
         foreach($oOrderItem as $item)
         {
             $oCollection->add($item);
-        }       
+        }
         return $oCollection;
     }
     public function add(OrderItem $oOrderItem):void
@@ -31,11 +30,15 @@ class OrderItemCollection extends AbstractCollectionDataType
         {
             $aOut[] = $oOrderItem->toArray();
         }
-        return $aOut;        
+        return $aOut;
+    }
+    public static function make(array $aOrderItemCollection):self
+    {
+        return self::createFromArray($aOrderItemCollection);
     }
     public static function createFromArray(array $aOrderItemCollection):self
     {
-        $new = new self(); 
+        $new = new self();
         foreach($aOrderItemCollection as $aOrderItem)
         {
             $new->add(OrderItem::createFromArray($aOrderItem));

@@ -41,14 +41,14 @@ final class Company
 	 */
 	final public function toArray(): array
 	{
-		return [
-		'company_name' => $this->getCompanyName(),
-		'addressLine1' => $this->getAddressLine1(),
-		'addressLine2' => $this->getAddressLine2(),
-		'country' => $this->getCountry(),
-		'attnName' => $this->getAttnName(),
-		'vatId' => $this->getVatId(),
-		];
+		$result = [];
+		$result['company_name'] = $this->getCompanyName();
+		$result['addressLine1'] = $this->getAddressLine1();
+		$result['addressLine2'] = $this->getAddressLine2();
+		$result['country'] = $this->getCountry();
+		$result['attnName'] = $this->getAttnName();
+		$result['vatId'] = $this->getVatId();
+		return $result;
 	}
 
 
@@ -111,10 +111,12 @@ final class Company
 	 * Company::setAddressLine1()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param string $addressLine1
+	 * @return self
 	 */
-	final public function setAddressLine1(string $addressLine1): void
+	final public function setAddressLine1(string $addressLine1): self
 	{
 		$this->addressLine1 = $addressLine1;
+		return $this;
 	}
 
 
@@ -122,10 +124,12 @@ final class Company
 	 * Company::setAddressLine2()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param string $addressLine2
+	 * @return self
 	 */
-	final public function setAddressLine2(string $addressLine2): void
+	final public function setAddressLine2(string $addressLine2): self
 	{
 		$this->addressLine2 = $addressLine2;
+		return $this;
 	}
 
 
@@ -133,10 +137,12 @@ final class Company
 	 * Company::setCountry()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param string $country
+	 * @return self
 	 */
-	final public function setCountry(string $country): void
+	final public function setCountry(string $country): self
 	{
 		$this->country = $country;
+		return $this;
 	}
 
 
@@ -144,10 +150,12 @@ final class Company
 	 * Company::setAttnName()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param string $attnName
+	 * @return self
 	 */
-	final public function setAttnName(string $attnName): void
+	final public function setAttnName(string $attnName): self
 	{
 		$this->attnName = $attnName;
+		return $this;
 	}
 
 
@@ -155,72 +163,9 @@ final class Company
 	 * Company::setVatId()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param string $vatId
-	 */
-	final public function setVatId(string $vatId): void
-	{
-		$this->vatId = $vatId;
-	}
-
-
-	/**
-	 * Company::addAddressLine1()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $addressLine1
 	 * @return self
 	 */
-	final public function addAddressLine1(string $addressLine1): self
-	{
-		$this->addressLine1 = $addressLine1;
-		return $this;
-	}
-
-
-	/**
-	 * Company::addAddressLine2()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $addressLine2
-	 * @return self
-	 */
-	final public function addAddressLine2(string $addressLine2): self
-	{
-		$this->addressLine2 = $addressLine2;
-		return $this;
-	}
-
-
-	/**
-	 * Company::addCountry()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $country
-	 * @return self
-	 */
-	final public function addCountry(string $country): self
-	{
-		$this->country = $country;
-		return $this;
-	}
-
-
-	/**
-	 * Company::addAttnName()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $attnName
-	 * @return self
-	 */
-	final public function addAttnName(string $attnName): self
-	{
-		$this->attnName = $attnName;
-		return $this;
-	}
-
-
-	/**
-	 * Company::addVatId()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $vatId
-	 * @return self
-	 */
-	final public function addVatId(string $vatId): self
+	final public function setVatId(string $vatId): self
 	{
 		$this->vatId = $vatId;
 		return $this;
@@ -236,12 +181,24 @@ final class Company
 	final public static function createFromArray(array $array): self
 	{
 		$new = new self();
-		$new->setCompanyName($array['company_name']);
-		$new->setAddressLine1($array['addressLine1']);
-		$new->setAddressLine2($array['addressLine2']);
-		$new->setCountry($array['country']);
-		$new->setAttnName($array['attnName']);
-		$new->setVatId($array['vatId']);
+		if(isset($array['company_name'])){
+			$new->setCompanyName($array['company_name']);
+		}
+		if(isset($array['addressLine1'])){
+			$new->setAddressLine1($array['addressLine1']);
+		}
+		if(isset($array['addressLine2'])){
+			$new->setAddressLine2($array['addressLine2']);
+		}
+		if(isset($array['country'])){
+			$new->setCountry($array['country']);
+		}
+		if(isset($array['attnName'])){
+			$new->setAttnName($array['attnName']);
+		}
+		if(isset($array['vatId'])){
+			$new->setVatId($array['vatId']);
+		}
 		return $new;
 	}
 
@@ -261,20 +218,9 @@ final class Company
 	 * Company::setCompanyName()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param string $company_name
-	 */
-	final public function setCompanyName(string $company_name): void
-	{
-		$this->company_name = $company_name;
-	}
-
-
-	/**
-	 * Company::addCompanyName()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $company_name
 	 * @return self
 	 */
-	final public function addCompanyName(string $company_name): self
+	final public function setCompanyName(string $company_name): self
 	{
 		$this->company_name = $company_name;
 		return $this;

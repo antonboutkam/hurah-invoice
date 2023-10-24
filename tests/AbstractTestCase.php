@@ -6,7 +6,7 @@ use Hurah\Invoice\Structure;
 use Hurah\Types\Type\DnsName;
 use PHPUnit\Framework\TestCase;
 
-abstract class AbstractTestCase extends TestCase
+abstract class  AbstractTestCase extends TestCase
 {
 	protected Structure $structure;
 
@@ -54,29 +54,29 @@ abstract class AbstractTestCase extends TestCase
 		    ->addCustomerNumber('111222333')
 		    ->addVatId();
 */
-		$oOrderItem = new Invoice\Order\OrderItem();
+		$oOrderItem = new Invoice\OrderItem();
 		$oOrderItem->setDescription('xxx');
 		$oOrderItem->setSubDescription('yyy');
         $oOrderItem->setQuantity(1);
         $oOrderItem->setUnit('stuk');
         $oOrderItem->setUnitPrice(5.10);
 		$oOrderItem->setVat(21);
-		$oOrderItemCollection = new Invoice\Order\OrderItemCollection();
+		$oOrderItemCollection = new Invoice\OrderItemCollection();
 		$oOrderItemCollection->add($oOrderItem);
 
 		$oOrder = new Invoice\Order();
 		$oOrder
-		    ->addCreatedOn((new \DateTime())->setTimestamp(time()))
-		    ->addOrderItems($oOrderItemCollection);
+		    ->setCreatedOn((new \DateTime())->setTimestamp(time()))
+		    ->setOrderItemCollection($oOrderItemCollection);
 
 		$oCompany = new Invoice\Company();
         $oCompany
-		    ->addCompanyName('Company name')
-		    ->addVatId('91919191919')
-		    ->addCountry('Nederland')
-		    ->addAttnName('Anton Boutkam')
-		    ->addAddressLine1('Amstelstraat 1')
-		    ->addAddressLine2('1421AW UITHOORN');
+		    ->setCompanyName('Company name')
+		    ->setVatId('91919191919')
+		    ->setCountry('Nederland')
+		    ->setAttnName('Anton Boutkam')
+		    ->setAddressLine1('Amstelstraat 1')
+		    ->setAddressLine2('1421AW UITHOORN');
 		$oInvoice = new Invoice();
 		$oInvoice->setNumber('123213')
 		    ->setCustomer($oCustomer)

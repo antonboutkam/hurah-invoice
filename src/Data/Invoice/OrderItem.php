@@ -1,5 +1,5 @@
 <?php
-namespace Hurah\Invoice\Data\Invoice\Order;
+namespace Hurah\Invoice\Data\Invoice;
 
 final class OrderItem
 {
@@ -36,9 +36,7 @@ final class OrderItem
 
 	/**
 	 * OrderItem::createFromArray()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param array $array
-	 * @return self
+	 * Make this method final to enable code generation.
 	 */
 	final public static function createFromArray(array $array): self
 	{
@@ -60,14 +58,14 @@ final class OrderItem
 	 */
 	final public function toArray(): array
 	{
-		return [
-		'description' => $this->getDescription(),
-		'subDescription' => $this->getSubDescription(),
-		'unitPrice' => $this->getUnitPrice(),
-		'unit' => $this->getUnit(),
-		'quantity' => $this->getQuantity(),
-		'vat' => $this->getVat(),
-		];
+		$result = [];
+		$result['description'] = $this->getDescription();
+		$result['subDescription'] = $this->getSubDescription();
+		$result['unitPrice'] = $this->getUnitPrice();
+		$result['unit'] = $this->getUnit();
+		$result['quantity'] = $this->getQuantity();
+		$result['vat'] = $this->getVat();
+		return $result;
 	}
 
 

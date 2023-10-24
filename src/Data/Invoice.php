@@ -60,16 +60,26 @@ final class Invoice implements InvoiceInterface
 	{
 		$new = new self();
 		$new->setNumber($array['number']);
-		$oOrder = Order::createFromArray($array['order']);
-		$new->setOrder($oOrder);
-		$oOwnCompany = Company::createFromArray($array['ownCompany']);
-		$new->setOwnCompany($oOwnCompany);
-		$oCustomer = Customer::createFromArray($array['customer']);
-		$new->setCustomer($oCustomer);
-		$oCustomerNote = Note::createFromArray($array['customerNote']);
-		$new->setCustomerNote($oCustomerNote);
-		$oOurNote = Note::createFromArray($array['ourNote']);
-		$new->setOurNote($oOurNote);
+		if(isset($array['order'])){
+			$oOrder = Order::createFromArray($array['order']);
+			$new->setOrder($oOrder);
+		}
+		if(isset($array['ownCompany'])){
+			$oOwnCompany = Company::createFromArray($array['ownCompany']);
+			$new->setOwnCompany($oOwnCompany);
+		}
+		if(isset($array['customer'])){
+			$oCustomer = Customer::createFromArray($array['customer']);
+			$new->setCustomer($oCustomer);
+		}
+		if(isset($array['customerNote'])){
+			$oCustomerNote = Note::createFromArray($array['customerNote']);
+			$new->setCustomerNote($oCustomerNote);
+		}
+		if(isset($array['ourNote'])){
+			$oOurNote = Note::createFromArray($array['ourNote']);
+			$new->setOurNote($oOurNote);
+		}
 		$new->setCustomerReference($array['customerReference']);
 		return $new;
 	}

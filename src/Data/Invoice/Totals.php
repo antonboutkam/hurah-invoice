@@ -1,5 +1,5 @@
 <?php
-namespace Hurah\Invoice\Data\Invoice\Order;
+namespace Hurah\Invoice\Data\Invoice;
 
 final class Totals
 {
