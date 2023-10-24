@@ -9,13 +9,12 @@ use Hurah\Invoice\Data\Invoice\Company;
 final class Invoice implements InvoiceInterface
 {
 	private Order $order;
-	private Company $supplier;
 	private Customer $customer;
 	private string $number;
-    private ?string $customerReference;
+	private ?string $customerReference = null;
 	private Company $ownCompany;
-    private ?Note $customerNote;
-    private ?Note $ourNote;
+	private ?Note $customerNote = null;
+	private ?Note $ourNote = null;
 
 
 	/**
@@ -30,16 +29,23 @@ final class Invoice implements InvoiceInterface
 	 * Invoice::create()
 	 * @generate [properties, getters, setters, adders, createFromArray, toArray]
 	 */
-	public static function create(string $number, Order $order, Company $ownCompany, Customer $customer, Note $customerNote = null, Note $ourNote = null, ?string $customerReference = null): self
-	{
+	public static function create(
+		string $number,
+		Order $order,
+		Company $ownCompany,
+		Customer $customer,
+		?Note $customerNote = null,
+		?Note $ourNote = null,
+		?string $customerReference = null
+	): self {
 		$new = new self();
 		$new->number = $number;
 		$new->order = $order;
 		$new->ownCompany = $ownCompany;
 		$new->customer = $customer;
-        $new->customerNote = $customerNote;
-        $new->ourNote = $ourNote;
-        $new->customerReference = $customerReference;
+		$new->customerNote = $customerNote;
+		$new->ourNote = $ourNote;
+		$new->customerReference = $customerReference;
 		return $new;
 	}
 
@@ -60,23 +66,12 @@ final class Invoice implements InvoiceInterface
 		$new->setOwnCompany($oOwnCompany);
 		$oCustomer = Customer::createFromArray($array['customer']);
 		$new->setCustomer($oCustomer);
+		$oCustomerNote = Note::createFromArray($array['customerNote']);
+		$new->setCustomerNote($oCustomerNote);
+		$oOurNote = Note::createFromArray($array['ourNote']);
+		$new->setOurNote($oOurNote);
+		$new->setCustomerReference($array['customerReference']);
 		return $new;
-	}
-
-
-	/**
-	 * Invoice::toArray()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @return array
-	 */
-	final public function toArray(): array
-	{
-		return [
-		'number' => $this->getNumber(),
-		'order' => $this->getOrder()->toArray(),
-		'ownCompany' => $this->getOwnCompany()->toArray(),
-		'customer' => $this->getCustomer()->toArray(),
-		];
 	}
 
 
@@ -90,6 +85,7 @@ final class Invoice implements InvoiceInterface
 		return $this->order;
 	}
 
+
 	/**
 	 * Invoice::setOrder()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -102,6 +98,7 @@ final class Invoice implements InvoiceInterface
 		return $this;
 	}
 
+
 	/**
 	 * Invoice::getCustomer()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -112,6 +109,7 @@ final class Invoice implements InvoiceInterface
 		return $this->customer;
 	}
 
+
 	/**
 	 * Invoice::getNumber()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -121,15 +119,17 @@ final class Invoice implements InvoiceInterface
 	{
 		return $this->number;
 	}
-    /**
-     * Invoice::getCustomerReference()
-     * This method is automatically generated, as long as it is marked final it will be generated
-     * @return string
-     */
-    final public function getCustomerReference(): string
-    {
-        return $this->customerReference;
-    }
+
+
+	/**
+	 * Invoice::getCustomerReference()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return string
+	 */
+	public function getCustomerReference(): ?string
+	{
+		return $this->customerReference;
+	}
 
 
 	/**
@@ -180,24 +180,98 @@ final class Invoice implements InvoiceInterface
 		$this->customer = $customer;
 		return $this;
 	}
-    /**
-     * Invoice::getCustomerNote()
-     * This method is automatically generated, as long as it is marked final it will be generated
-     * @return ?Note
-     */
-    final public function getCustomerNote(): ?Note
-    {
-        return $this->customerNote;
-    }
 
-    /**
-     * Invoice::getOurNote()
-     * This method is automatically generated, as long as it is marked final it will be generated
-     * @return ?Note
-     */
-    final public function getOurNote(): ?Note
-    {
-        return $this->ourNote;
-    }
 
+	/**
+	 * Invoice::getCustomerNote()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return Note
+	 */
+	final public function getCustomerNote(): ?Note
+	{
+		return $this->customerNote;
+	}
+
+
+	/**
+	 * Invoice::getOurNote()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return Note
+	 */
+	final public function getOurNote(): ?Note
+	{
+		return $this->ourNote;
+	}
+
+
+	/**
+	 * Invoice::setCustomerNote()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param Note $customerNote
+	 * @return self
+	 */
+	final public function setCustomerNote(?Note $customerNote): self
+	{
+		$this->customerNote = $customerNote;
+		return $this;
+	}
+
+
+	/**
+	 * Invoice::setOurNote()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param Note $ourNote
+	 * @return self
+	 */
+	final public function setOurNote(?Note $ourNote): self
+	{
+		$this->ourNote = $ourNote;
+		return $this;
+	}
+
+
+	/**
+	 * Invoice::setCustomerReference()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param string $customerReference
+	 * @return self
+	 */
+	final public function setCustomerReference(?string $customerReference): self
+	{
+		$this->customerReference = $customerReference;
+		return $this;
+	}
+
+
+	/**
+	 * Invoice::toArray()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return array
+	 */
+	final public function toArray(): array
+	{
+		$result = [];
+		$result['number'] = $this->getNumber();
+		$result['order'] = $this->getOrder()->toArray();
+		$result['ownCompany'] = $this->getOwnCompany()->toArray();
+		$result['customer'] = $this->getCustomer()->toArray();
+		if(($oCustomerNote = $this->getCustomerNote()) instanceof Note)
+		{
+			$result['customerNote'] = $oCustomerNote->toArray();
+		}
+		else
+		{
+			$result['customerNote'] = null;
+		}
+		if(($oOurNote = $this->getOurNote()) instanceof Note)
+		{
+			$result['ourNote'] = $oOurNote->toArray();
+		}
+		else
+		{
+			$result['ourNote'] = null;
+		}
+		$result['customerReference'] = $this->getCustomerReference();
+		return $result;
+	}
 }

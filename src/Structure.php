@@ -1,12 +1,13 @@
 <?php
 namespace Hurah\Invoice;
 
+use Hurah\Invoice\Data\ConsumableInvoiceInterface;
 use Hurah\Invoice\Data\Invoice;
 use Hurah\Invoice\Data\InvoiceInterface;
 
 final class Structure implements StructureInterface
 {
-	private InvoiceInterface $invoice;
+	private ConsumableInvoiceInterface $invoice;
     private Invoice\Environment $environment;
 
 	/**
@@ -16,11 +17,11 @@ final class Structure implements StructureInterface
 	{
 		$this->invoice = new Invoice();
 	}
-    public function getInvoice(): InvoiceInterface
+    public function getInvoice(): ConsumableInvoiceInterface
     {
         return $this->invoice;
     }
-    public function setInvoice(InvoiceInterface $invoice):self
+    public function setInvoice(ConsumableInvoiceInterface $invoice):self
     {
         $this->invoice = $invoice;
         return $this;

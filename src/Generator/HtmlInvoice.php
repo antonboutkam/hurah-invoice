@@ -31,6 +31,11 @@ final class HtmlInvoice
 
         $twig = new \Twig\Environment($loader, $config);
 
+
+        $oInvoice = $this->invoiceStructure->getInvoice();
+
+
+
         return new Html($twig->render('invoice.twig', ['structure' => $this->invoiceStructure]));
 	}
 

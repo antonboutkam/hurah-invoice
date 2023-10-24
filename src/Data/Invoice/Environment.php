@@ -7,8 +7,8 @@ use Hurah\Types\Exception\MethodNotImplementedException;
 
 final class Environment
 {
-    private DnsName $assetsHostname;
-    private DnsName $fileHostname;
+    private ?DnsName $assetsHostname = null;
+    private ?DnsName $fileHostname = null;
     private array $extraArguments = [];
     private array $twigConfig = [
         'cache' => "/tmp",
@@ -83,7 +83,7 @@ final class Environment
      * This method is automatically generated, as long as it is marked final it will be generated
      * @return DnsName
      */
-    final public function getAssetsHostname(): DnsName
+    final public function getAssetsHostname(): ?DnsName
     {
         return $this->assetsHostname;
     }
@@ -105,7 +105,7 @@ final class Environment
      * This method is automatically generated, as long as it is marked final it will be generated
      * @return DnsName
      */
-    final public function getFileHostname(): DnsName
+    final public function getFileHostname(): ?DnsName
     {
         return $this->fileHostname;
     }
