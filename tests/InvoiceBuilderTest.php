@@ -2,6 +2,7 @@
 
 namespace Test\Hurah\Invoice;
 
+use DateInterval;
 use Hurah\Invoice\Data\Invoice;
 use Hurah\Invoice\Generator\Document\Type\Pdf;
 use Hurah\Invoice\Generator\Result\Handler\ReturnString;
@@ -67,10 +68,22 @@ class InvoiceBuilderTest extends AbstractTestCase
     public function testSetInvoice()
     {
         $sExpected = '111';
+		$bIsFullyPaid = false;
+		$conditions = 'vooruit betalen';
         $oOrder = $this->structure->getInvoice()->getOrder();
         $oOwnCompany = $this->structure->getInvoice()->getOwnCompany();
         $oCustomer = $this->structure->getInvoice()->getCustomer();
-        $oInvoice = Invoice::create($sExpected, $oOrder, $oOwnCompany, $oCustomer);
+		$oPayTerm = new DateInterval('P1D');
+        $oInvoice = Invoice::create(
+			$sExpected,
+			$oOrder,
+			$oOwnCompany,
+			$oCustomer,
+			$oPayTerm,
+			$bIsFullyPaid,
+			$conditions
+		);
+
         $oInvoice->setNumber($sExpected);
         $this->structure->setInvoice($oInvoice);
         $this->assertEquals($sExpected, $oInvoice->getNumber());

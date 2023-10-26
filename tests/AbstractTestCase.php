@@ -1,6 +1,7 @@
 <?php
 namespace Test\Hurah\Invoice;
 
+use DateInterval;
 use Hurah\Invoice\Data\Invoice;
 use Hurah\Invoice\Structure;
 use Hurah\Types\Type\DnsName;
@@ -82,7 +83,10 @@ abstract class  AbstractTestCase extends TestCase
 		$oInvoice->setNumber('123213')
 		    ->setCustomer($oCustomer)
 		    ->setOrder($oOrder)
-		    ->setOwnCompany($oCompany);
+			->setPayTerm(new DateInterval('P1D'))
+			->setPaymentConditions("Vooruit betalen")
+			->setIsFullyPaid(false)
+			->setOwnCompany($oCompany);
 
 		$this->structure->setInvoice($oInvoice);
 	}
