@@ -1,6 +1,7 @@
 <?php
 namespace Hurah\Invoice\Data;
 
+use DateInterval;
 use Hurah\Invoice\Data\Invoice\Customer;
 use Hurah\Invoice\Data\Invoice\Note;
 use Hurah\Invoice\Data\Invoice\Order;
@@ -15,6 +16,9 @@ final class Invoice implements InvoiceInterface
 	private Company $ownCompany;
 	private ?Note $customerNote = null;
 	private ?Note $ourNote = null;
+	private DateInterval $payTerm;
+	private bool $isFullyPaid;
+	private string $paymentConditions;
 
 
 	/**
@@ -34,6 +38,9 @@ final class Invoice implements InvoiceInterface
 		Order $order,
 		Company $ownCompany,
 		Customer $customer,
+		DateInterval $payTerm,
+		bool $isFullyPaid,
+		string $paymentConditions,
 		?Note $customerNote = null,
 		?Note $ourNote = null,
 		?string $customerReference = null
@@ -43,44 +50,12 @@ final class Invoice implements InvoiceInterface
 		$new->order = $order;
 		$new->ownCompany = $ownCompany;
 		$new->customer = $customer;
+		$new->payTerm = $payTerm;
+		$new->isFullyPaid = $isFullyPaid;
+		$new->paymentConditions = $paymentConditions;
 		$new->customerNote = $customerNote;
 		$new->ourNote = $ourNote;
 		$new->customerReference = $customerReference;
-		return $new;
-	}
-
-
-	/**
-	 * Invoice::createFromArray()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param array $array
-	 * @return self
-	 */
-	final public static function createFromArray(array $array): self
-	{
-		$new = new self();
-		$new->setNumber($array['number']);
-		if(isset($array['order'])){
-			$oOrder = Order::createFromArray($array['order']);
-			$new->setOrder($oOrder);
-		}
-		if(isset($array['ownCompany'])){
-			$oOwnCompany = Company::createFromArray($array['ownCompany']);
-			$new->setOwnCompany($oOwnCompany);
-		}
-		if(isset($array['customer'])){
-			$oCustomer = Customer::createFromArray($array['customer']);
-			$new->setCustomer($oCustomer);
-		}
-		if(isset($array['customerNote'])){
-			$oCustomerNote = Note::createFromArray($array['customerNote']);
-			$new->setCustomerNote($oCustomerNote);
-		}
-		if(isset($array['ourNote'])){
-			$oOurNote = Note::createFromArray($array['ourNote']);
-			$new->setOurNote($oOurNote);
-		}
-		$new->setCustomerReference($array['customerReference']);
 		return $new;
 	}
 
@@ -265,6 +240,9 @@ final class Invoice implements InvoiceInterface
 		$result['order'] = $this->getOrder()->toArray();
 		$result['ownCompany'] = $this->getOwnCompany()->toArray();
 		$result['customer'] = $this->getCustomer()->toArray();
+		$result['payTerm'] = $this->getPayTerm();
+		$result['isFullyPaid'] = $this->getIsFullyPaid();
+		$result['paymentConditions'] = $this->getPaymentConditions();
 		if(($oCustomerNote = $this->getCustomerNote()) instanceof Note)
 		{
 			$result['customerNote'] = $oCustomerNote->toArray();
@@ -283,5 +261,124 @@ final class Invoice implements InvoiceInterface
 		}
 		$result['customerReference'] = $this->getCustomerReference();
 		return $result;
+	}
+
+
+	/**
+	 * Invoice::getPayTerm()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return DateInterval
+	 */
+	final public function getPayTerm(): DateInterval
+	{
+		return $this->payTerm;
+	}
+
+
+	/**
+	 * Invoice::setPayTerm()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param DateInterval $payTerm
+	 * @return self
+	 */
+	final public function setPayTerm(DateInterval $payTerm): self
+	{
+		$this->payTerm = $payTerm;
+		return $this;
+	}
+
+
+	/**
+	 * Invoice::getIsFullyPaid()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return bool
+	 */
+	final public function getIsFullyPaid(): bool
+	{
+		return $this->isFullyPaid;
+	}
+
+
+	/**
+	 * Invoice::setIsFullyPaid()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param bool $isFullyPaid
+	 * @return self
+	 */
+	final public function setIsFullyPaid(bool $isFullyPaid): self
+	{
+		$this->isFullyPaid = $isFullyPaid;
+		return $this;
+	}
+
+
+	/**
+	 * Invoice::getPaymentConditions()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return string
+	 */
+	final public function getPaymentConditions(): string
+	{
+		return $this->paymentConditions;
+	}
+
+
+	/**
+	 * Invoice::setPaymentConditions()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param string $paymentConditions
+	 * @return self
+	 */
+	final public function setPaymentConditions(string $paymentConditions): self
+	{
+		$this->paymentConditions = $paymentConditions;
+		return $this;
+	}
+
+
+	/**
+	 * Invoice::createFromArray()
+	 * Make this method final to enable code generation.
+	 */
+	final public static function createFromArray(array $array): self
+	{
+		$new = new self();
+		if(isset($array['number'])){
+			$new->setNumber($array['number']);
+		}
+		if(isset($array['order'])){
+			$oOrder = Order::createFromArray($array['order']);
+			$new->setOrder($oOrder);
+		}
+		if(isset($array['ownCompany'])){
+			$oOwnCompany = Company::createFromArray($array['ownCompany']);
+			$new->setOwnCompany($oOwnCompany);
+		}
+		if(isset($array['customer'])){
+			$oCustomer = Customer::createFromArray($array['customer']);
+			$new->setCustomer($oCustomer);
+		}
+		if(isset($array['payTerm'])){
+			$oPayTerm = DateInterval::createFromDateString($array['payTerm']);
+			$new->setPayTerm($oPayTerm);
+		}
+		if(isset($array['isFullyPaid'])){
+			$new->setIsFullyPaid($array['isFullyPaid']);
+		}
+		if(isset($array['paymentConditions'])){
+			$new->setPaymentConditions($array['paymentConditions']);
+		}
+		if(isset($array['customerNote'])){
+			$oCustomerNote = Note::createFromArray($array['customerNote']);
+			$new->setCustomerNote($oCustomerNote);
+		}
+		if(isset($array['ourNote'])){
+			$oOurNote = Note::createFromArray($array['ourNote']);
+			$new->setOurNote($oOurNote);
+		}
+		if(isset($array['customerReference'])){
+			$new->setCustomerReference($array['customerReference']);
+		}
+		return $new;
 	}
 }

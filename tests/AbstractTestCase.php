@@ -22,6 +22,7 @@ abstract class  AbstractTestCase extends TestCase
         $oEnvironment->setFileHostname(new DnsName('static.antonboutkam.nl'));
 		$oCustomer = new Invoice\Customer();
         $oCustomer->setVatId('19495634');
+		$oCustomer->setCustomerId(123);
         $oCustomer->setCustomerNumber('99999');
         $oCustomer->setCustomerName('Anton Boutkam');
 

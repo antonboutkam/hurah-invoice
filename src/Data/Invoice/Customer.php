@@ -7,6 +7,7 @@ final class Customer
 	private AddressCollection $addressCollection;
 	private string $vatId;
 	private string $customerName;
+	private string $customerId;
 
 
 	/**
@@ -15,12 +16,14 @@ final class Customer
 	 * @return self
 	 */
 	public static function create(
+		string $customerId,
 		string $customerNumber,
 		string $customerName,
 		string $vatId,
 		AddressCollection $addressCollection
 	): self {
 		$new = new self();
+		$new->customerId = $customerId;
 		$new->customerNumber = $customerNumber;
 		$new->customerName = $customerName;
 		$new->vatId = $vatId;
@@ -31,9 +34,7 @@ final class Customer
 
 	/**
 	 * Customer::createFromArray()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param array $array
-	 * @return self
+	 * Make this method final to enable code generation.
 	 */
 	final public static function createFromArray(array $array): self
 	{
@@ -54,12 +55,13 @@ final class Customer
 	 */
 	final public function toArray(): array
 	{
-		return [
-		'customerNumber' => $this->getCustomerNumber(),
-		'customerName' => $this->getCustomerName(),
-		'vatId' => $this->getVatId(),
-		'addressCollection' => $this->getAddressCollection()->toArray(),
-		];
+		$result = [];
+		$result['customerId'] = $this->getCustomerId();
+		$result['customerNumber'] = $this->getCustomerNumber();
+		$result['customerName'] = $this->getCustomerName();
+		$result['vatId'] = $this->getVatId();
+		$result['addressCollection'] = (string) $this->getAddressCollection();
+		return $result;
 	}
 
 
@@ -183,6 +185,30 @@ final class Customer
 	final public function setCustomerName(string $customerName): self
 	{
 		$this->customerName = $customerName;
+		return $this;
+	}
+
+
+	/**
+	 * Customer::getCustomerId()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return string
+	 */
+	final public function getCustomerId(): string
+	{
+		return $this->customerId;
+	}
+
+
+	/**
+	 * Customer::setCustomerId()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param string $customerId
+	 * @return self
+	 */
+	final public function setCustomerId(string $customerId): self
+	{
+		$this->customerId = $customerId;
 		return $this;
 	}
 }
