@@ -12,6 +12,24 @@ final class Address
 
 
 	/**
+	 * Address::createFromArray()
+	 * Make this method final to enable code generation.
+	 */
+	final public static function createFromArray(array $array): self
+	{
+		$new = new self();
+		$new->setName($array['name']);
+		$new->setAddressLine1($array['addressLine1']);
+		$new->setAddressLine2($array['addressLine2']);
+		$new->setCountry($array['country']);
+		$new->setAttnName($array['attnName']);
+		$oAddressType = AddressType::createFromArray($array['addressType']);
+		$new->setAddressType($oAddressType);
+		return $new;
+	}
+
+
+	/**
 	 * Address::create()
 	 * @generate [properties, getters, setters, adders, toArray, createFromArray]
 	 * @return static
@@ -36,20 +54,20 @@ final class Address
 
 
 	/**
-	 * Address::createFromArray()
-	 * Make this method final to enable code generation.
+	 * Address::toArray()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return array
 	 */
-	final public static function createFromArray(array $array): self
+	final public function toArray(): array
 	{
-		$new = new self();
-		$new->setName($array['name']);
-		$new->setAddressLine1($array['addressLine1']);
-		$new->setAddressLine2($array['addressLine2']);
-		$new->setCountry($array['country']);
-		$new->setAttnName($array['attnName']);
-		$oAddressType = AddressType::createFromArray($array['addressType']);
-		$new->setAddressType($oAddressType);
-		return $new;
+		$result = [];
+		$result['name'] = $this->getName();
+		$result['addressLine1'] = $this->getAddressLine1();
+		$result['addressLine2'] = $this->getAddressLine2();
+		$result['country'] = $this->getCountry();
+		$result['attnName'] = $this->getAttnName();
+		$result['addressType'] = $this->getAddressType()->toArray();
+		return $result;
 	}
 
 
@@ -61,50 +79,6 @@ final class Address
 	final public function getName(): string
 	{
 		return $this->name;
-	}
-
-
-	/**
-	 * Address::getAddressLine1()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @return string
-	 */
-	final public function getAddressLine1(): string
-	{
-		return $this->addressLine1;
-	}
-
-
-	/**
-	 * Address::getAddressLine2()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @return string
-	 */
-	final public function getAddressLine2(): string
-	{
-		return $this->addressLine2;
-	}
-
-
-	/**
-	 * Address::getCountry()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @return string
-	 */
-	final public function getCountry(): string
-	{
-		return $this->country;
-	}
-
-
-	/**
-	 * Address::getAttnName()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @return string
-	 */
-	final public function getAttnName(): string
-	{
-		return $this->attnName;
 	}
 
 
@@ -122,6 +96,17 @@ final class Address
 
 
 	/**
+	 * Address::getAddressLine1()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return string
+	 */
+	final public function getAddressLine1(): string
+	{
+		return $this->addressLine1;
+	}
+
+
+	/**
 	 * Address::setAddressLine1()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param string $addressLine1
@@ -131,6 +116,17 @@ final class Address
 	{
 		$this->addressLine1 = $addressLine1;
 		return $this;
+	}
+
+
+	/**
+	 * Address::getAddressLine2()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return string
+	 */
+	final public function getAddressLine2(): string
+	{
+		return $this->addressLine2;
 	}
 
 
@@ -148,6 +144,17 @@ final class Address
 
 
 	/**
+	 * Address::getCountry()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return string
+	 */
+	final public function getCountry(): string
+	{
+		return $this->country;
+	}
+
+
+	/**
 	 * Address::setCountry()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param string $country
@@ -161,6 +168,17 @@ final class Address
 
 
 	/**
+	 * Address::getAttnName()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return string
+	 */
+	final public function getAttnName(): string
+	{
+		return $this->attnName;
+	}
+
+
+	/**
 	 * Address::setAttnName()
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @param string $attnName
@@ -170,24 +188,6 @@ final class Address
 	{
 		$this->attnName = $attnName;
 		return $this;
-	}
-
-
-	/**
-	 * Address::toArray()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @return array
-	 */
-	final public function toArray(): array
-	{
-		$result = [];
-		$result['name'] = $this->getName();
-		$result['addressLine1'] = $this->getAddressLine1();
-		$result['addressLine2'] = $this->getAddressLine2();
-		$result['country'] = $this->getCountry();
-		$result['attnName'] = $this->getAttnName();
-		$result['addressType'] = $this->getAddressType()->toArray();
-		return $result;
 	}
 
 
