@@ -14,6 +14,7 @@ final class Address
 	/**
 	 * Address::create()
 	 * @generate [properties, getters, setters, adders, toArray, createFromArray]
+	 * @return static
 	 */
 	public function create(
 		string $name,
@@ -22,7 +23,7 @@ final class Address
 		string $country,
 		string $attnName,
 		AddressType $addressType
-	) {
+	): self {
 		$new = new self();
 		$new->name = $name;
 		$new->addressLine1 = $addressLine1;
@@ -36,9 +37,7 @@ final class Address
 
 	/**
 	 * Address::createFromArray()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param array $array
-	 * @return self
+	 * Make this method final to enable code generation.
 	 */
 	final public static function createFromArray(array $array): self
 	{
@@ -181,14 +180,14 @@ final class Address
 	 */
 	final public function toArray(): array
 	{
-		return [
-		'name' => $this->getName(),
-		'addressLine1' => $this->getAddressLine1(),
-		'addressLine2' => $this->getAddressLine2(),
-		'country' => $this->getCountry(),
-		'attnName' => $this->getAttnName(),
-		'addressType' => $this->getAddressType()->toArray(),
-		];
+		$result = [];
+		$result['name'] = $this->getName();
+		$result['addressLine1'] = $this->getAddressLine1();
+		$result['addressLine2'] = $this->getAddressLine2();
+		$result['country'] = $this->getCountry();
+		$result['attnName'] = $this->getAttnName();
+		$result['addressType'] = $this->getAddressType()->toArray();
+		return $result;
 	}
 
 

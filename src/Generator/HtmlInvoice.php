@@ -31,12 +31,32 @@ final class HtmlInvoice
 
         $twig = new \Twig\Environment($loader, $config);
 
+		if(isset($config['debug']) && $config['debug'])
+		{
+			$twig->addExtension(new \Twig\Extension\DebugExtension());
+		}
 
-        $oInvoice = $this->invoiceStructure->getInvoice();
+
+        $invoice = $this->invoiceStructure->getInvoice();
+		$ownCompany = $invoice->getOwnCompany();
+		$customer = $invoice->getCustomer();
+		$order = $invoice->getOrder();
+		$aVars = [
+			'structure' => $this->invoiceStructure,
+			'invoice' => $invoice,
+			'company' => $ownCompany,
+			'customer' => $customer,
+			'order' => $order,
+			'number' => $invoice->getNumber(),
+			'notes' => [
+				'own' => $invoice->getCustomerNote(),
+				'customer' => $invoice->getOurNote()
+			]
+		];
 
 
 
-        return new Html($twig->render('invoice.twig', ['structure' => $this->invoiceStructure]));
+        return new Html($twig->render('invoice.twig', $aVars));
 	}
 
 
