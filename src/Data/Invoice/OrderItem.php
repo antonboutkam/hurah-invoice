@@ -12,7 +12,7 @@ final class OrderItem
 
 
 	/**
-	 * OrderItemTwo::create()
+	 * OrderItem::create()
 	 * @generate [properties, getters, setters, createFromArray, toArray]
 	 */
 	public static function create(
