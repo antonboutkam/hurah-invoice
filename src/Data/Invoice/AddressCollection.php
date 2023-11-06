@@ -24,6 +24,14 @@ class AddressCollection extends AbstractCollectionDataType
     {
         return $this->array[$this->position];
     }
+	public function getDelivery():Address
+	{
+		return $this->getByType(AddressType::create(AddressType::DELIVERY));
+	}
+	public function getInvoice():Address
+	{
+		return $this->getByType(AddressType::create(AddressType::INVOICE));
+	}
 	public function getByType(AddressType $type):Address
 	{
 		foreach($this as $address)
