@@ -2,9 +2,11 @@
 namespace Test\Hurah\Invoice;
 
 use DateInterval;
+use DateTime;
 use Hurah\Invoice\Data\Invoice;
 use Hurah\Invoice\Structure;
 use Hurah\Types\Type\DnsName;
+use Hurah\Types\Type\Physical\Person\FullName;
 use PHPUnit\Framework\TestCase;
 
 abstract class  AbstractTestCase extends TestCase
@@ -22,13 +24,14 @@ abstract class  AbstractTestCase extends TestCase
         $oEnvironment->setAssetsHostname(new DnsName('antonboutkam.nl'));
         $oEnvironment->setFileHostname(new DnsName('static.antonboutkam.nl'));
 		$oCustomer = new Invoice\Customer();
-        $oCustomer->setVatId('19495634');
+		$oCustomer->setCustomerEmail('anton@blabla.com');
+		$oCustomer->setVatId('19495634');
 		$oCustomer->setCustomerId(123);
         $oCustomer->setCustomerNumber('99999');
         $oCustomer->setCustomerName('Anton Boutkam');
 
         $oInvoiceAddress = new Invoice\Address();
-        $oInvoiceAddress->setName('Nui Boutkam');
+		$oInvoiceAddress->setName('Nui Boutkam');
         $oInvoiceAddress->setAddressLine1('Amstelstraat 1');
         $oInvoiceAddress->setAddressLine2('1421AW Uithoorn');
         $oInvoiceAddress->setAttnName('Anton Boutkam');
@@ -68,6 +71,9 @@ abstract class  AbstractTestCase extends TestCase
 
 		$oOrder = new Invoice\Order();
 		$oOrder
+			->setNumber('20230000123')
+			->setCreatedBy(FullName::createString('Anton', 'Boutkam'))
+			->setCustomerReference('HM0000232')
 		    ->setCreatedOn((new \DateTime())->setTimestamp(time()))
 		    ->setOrderItemCollection($oOrderItemCollection);
 
@@ -75,12 +81,15 @@ abstract class  AbstractTestCase extends TestCase
         $oCompany
 		    ->setCompanyName('Company name')
 		    ->setVatId('91919191919')
+			->setChamberOfCommerce('0982782923')
 		    ->setCountry('Nederland')
 		    ->setAttnName('Anton Boutkam')
 		    ->setAddressLine1('Amstelstraat 1')
 		    ->setAddressLine2('1421AW UITHOORN');
 		$oInvoice = new Invoice();
-		$oInvoice->setNumber('123213')
+		$oInvoice
+			->setNumber('123213')
+			->setCreatedOn((new DateTime())->setTimestamp(1698142544))
 		    ->setCustomer($oCustomer)
 		    ->setOrder($oOrder)
 			->setPayTerm(new DateInterval('P1D'))

@@ -1,7 +1,8 @@
 <?php
 namespace Hurah\Invoice\Data\Invoice;
 
-use Hurah\Types\Type\Physical\Person;
+use Hurah\Types\Exception\InvalidArgumentException;
+use Hurah\Types\Type\Physical\Person\FullName;
 use DateTime;
 
 final class Order
@@ -10,19 +11,49 @@ final class Order
 	private OrderItemCollection $orderItemCollection;
 	private string $number;
 
-	private Person $createdBy;
+	private FullName $createdBy;
+
+	private ?string $customerReference = null;
 
 	/**
 	 * Constructor
 	 * @generate [properties, getters, setters, adders, createFromArray, toArray]
 	 */
-	public static function create(string $number, Person $createdBy, OrderItemCollection $orderItemCollection, DateTime $createdOn): Order
+	public static function create(string $number, FullName $createdBy, OrderItemCollection $orderItemCollection, DateTime $createdOn, string $customerReference): Order
 	{
 		$new = new self();
 		$new->number = $number;
-		
 		$new->orderItemCollection = $orderItemCollection;
 		$new->createdOn = $createdOn;
+		$new->createdBy = $createdBy;
+		$new->customerReference = $customerReference;
+
+		return $new;
+	}
+
+	public static function createFromArray($order): self
+	{
+		$new = new self();
+		$new->number = $order['number'];
+
+		$new->orderItemCollection = OrderItemCollection::make($order['orderItemCollection']);
+		if(is_int($order['createdOn']))
+		{
+			$new->createdOn = (new DateTime())->setTimestamp($order['createdOn']);
+		}
+		elseif($order['createdOn'] instanceof DateTime)
+		{
+			$new->createdOn = $order['createdOn'];
+		}
+		else
+		{
+			throw new InvalidArgumentException("createdOn is empty or of an unimplemented type");
+		}
+
+		$new->customerReference = $order['customerReference'] ?? '';
+
+		$new->setCreatedBy(FullName::createString($order['firstName'], $order['familyName']));
+
 		return $new;
 	}
 
@@ -36,11 +67,32 @@ final class Order
 	{
 		$result = [];
 		$result['number'] = $this->getNumber();
-		$result['orderItemCollection'] = (string) $this->getOrderItemCollection();
+		$result['orderItemCollection'] = $this->getOrderItemCollection()->toArray();
+		$result['createdBy'] = $this->getCreatedBy();
+		$result['firstName'] = $this->getCreatedBy()->getFirstName();
+		$result['familyName'] = $this->getCreatedBy()->getFamilyName();
 		$result['createdOn'] = $this->getCreatedOn();
 		return $result;
 	}
+	final public function setCustomerReference(string $customerReference):self
+	{
+		$this->customerReference = $customerReference;
+		return $this;
+	}
+	final public function getCustomerReference(): string
+	{
+		return $this->customerReference;
+	}
 
+	final public function setCreatedBy(FullName $createdBy):self
+	{
+		$this->createdBy = $createdBy;
+		return $this;
+	}
+	final public function getCreatedBy(): FullName
+	{
+		return $this->createdBy;
+	}
 
 	/**
 	 * Order::getCreatedOn()

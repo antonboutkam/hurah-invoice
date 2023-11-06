@@ -3,10 +3,14 @@
 namespace Test\Hurah\Invoice;
 
 use DateInterval;
+use DateTime;
 use Hurah\Invoice\Data\Invoice;
+use Hurah\Invoice\Data\Invoice\PaymentDetails;
 use Hurah\Invoice\Generator\Document\Type\Pdf;
 use Hurah\Invoice\Generator\Result\Handler\ReturnString;
 use Hurah\Invoice\InvoiceBuilder;
+use Hurah\Types\Type\Bic;
+use Hurah\Types\Type\Iban;
 
 
 class InvoiceBuilderTest extends AbstractTestCase
@@ -69,19 +73,22 @@ class InvoiceBuilderTest extends AbstractTestCase
     {
         $sExpected = '111';
 		$bIsFullyPaid = false;
-		$conditions = 'vooruit betalen';
         $oOrder = $this->structure->getInvoice()->getOrder();
         $oOwnCompany = $this->structure->getInvoice()->getOwnCompany();
         $oCustomer = $this->structure->getInvoice()->getCustomer();
-		$oPayTerm = new DateInterval('P1D');
-        $oInvoice = Invoice::create(
+		$oPayTerm = new DateInterval('P15D');
+		$oCreatedOn = (new DateTime())->setTimestamp(1698142544);
+		$oPaymentDetails = PaymentDetails::make(new Iban('NL38ABNA0483015741'), new Bic('ABNANL2A'));
+		$oInvoice = Invoice::create(
 			$sExpected,
 			$oOrder,
 			$oOwnCompany,
 			$oCustomer,
+			$oCreatedOn,
 			$oPayTerm,
+			$oPaymentDetails,
 			$bIsFullyPaid,
-			$conditions
+			'Binnen 14 dagen'
 		);
 
         $oInvoice->setNumber($sExpected);

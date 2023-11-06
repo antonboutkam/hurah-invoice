@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "hurah/data-types",
-            "version": "v1.0.127",
+            "version": "v1.0.130",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonboutkam/data-types.git",
-                "reference": "191f11ce92d800142b42676519151e00cce1d7ae"
+                "reference": "844b88cb1ff1eb60b7d296def0b4b7e38bef87c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonboutkam/data-types/zipball/191f11ce92d800142b42676519151e00cce1d7ae",
-                "reference": "191f11ce92d800142b42676519151e00cce1d7ae",
+                "url": "https://api.github.com/repos/antonboutkam/data-types/zipball/844b88cb1ff1eb60b7d296def0b4b7e38bef87c4",
+                "reference": "844b88cb1ff1eb60b7d296def0b4b7e38bef87c4",
                 "shasum": ""
             },
             "require": {
@@ -52,9 +52,9 @@
             "description": "Collection of general purpose data types, corresponding collections, validators, utilities and some control statements represented by objects to allow more strict type checking",
             "support": {
                 "issues": "https://github.com/antonboutkam/data-types/issues",
-                "source": "https://github.com/antonboutkam/data-types/tree/v1.0.127"
+                "source": "https://github.com/antonboutkam/data-types/tree/v1.0.130"
             },
-            "time": "2023-10-30T10:53:05+00:00"
+            "time": "2023-11-06T12:47:20+00:00"
         },
         {
             "name": "hurah/logger",

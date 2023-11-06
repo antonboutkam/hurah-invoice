@@ -2,10 +2,12 @@
 namespace Hurah\Invoice\Data;
 
 use DateInterval;
+use DateTime;
 use Hurah\Invoice\Data\Invoice\Customer;
 use Hurah\Invoice\Data\Invoice\Note;
 use Hurah\Invoice\Data\Invoice\Order;
 use Hurah\Invoice\Data\Invoice\Company;
+use Hurah\Invoice\Data\Invoice\PaymentDetails;
 
 final class Invoice implements InvoiceInterface
 {
@@ -16,7 +18,25 @@ final class Invoice implements InvoiceInterface
 	private Company $ownCompany;
 	private ?Note $customerNote = null;
 	private ?Note $ourNote = null;
+	private DateTime $createdOn;
 	private DateInterval $payTerm;
+	private PaymentDetails $paymentDetails;
+
+	/**
+	 * @return PaymentDetails
+	 */
+	public function getPaymentDetails(): PaymentDetails
+	{
+		return $this->paymentDetails;
+	}
+
+	/**
+	 * @param PaymentDetails $paymentDetails
+	 */
+	public function setPaymentDetails(PaymentDetails $paymentDetails): void
+	{
+		$this->paymentDetails = $paymentDetails;
+	}
 	private bool $isFullyPaid;
 	private string $paymentConditions;
 
@@ -38,7 +58,9 @@ final class Invoice implements InvoiceInterface
 		Order $order,
 		Company $ownCompany,
 		Customer $customer,
+		DateTime $createdOn,
 		DateInterval $payTerm,
+		PaymentDetails $paymentDetails,
 		bool $isFullyPaid,
 		string $paymentConditions,
 		?Note $customerNote = null,
@@ -50,7 +72,9 @@ final class Invoice implements InvoiceInterface
 		$new->order = $order;
 		$new->ownCompany = $ownCompany;
 		$new->customer = $customer;
+		$new->createdOn = $createdOn;
 		$new->payTerm = $payTerm;
+		$new->paymentDetails = $paymentDetails;
 		$new->isFullyPaid = $isFullyPaid;
 		$new->paymentConditions = $paymentConditions;
 		$new->customerNote = $customerNote;
@@ -176,8 +200,25 @@ final class Invoice implements InvoiceInterface
 	{
 		return $this->customerNote;
 	}
+	/**
+	 * Invoice::setCreatedOn()
+	 * @param DateTime $createdOn
+	 * @return void
+	 */
+	final public function setCreatedOn(DateTime $createdOn): self
+	{
+		$this->createdOn = $createdOn;
+		return $this;
+	}
 
-
+	/**
+	 * Invoice::getCreatedOn()
+	 * @return DateTime
+	 */
+	final public function getCreatedOn(): DateTime
+	{
+		return $this->createdOn;
+	}
 	/**
 	 * Invoice::getOurNote()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -218,7 +259,7 @@ final class Invoice implements InvoiceInterface
 	/**
 	 * Invoice::setCustomerReference()
 	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $customerReference
+	 * @param ?string $customerReference
 	 * @return self
 	 */
 	final public function setCustomerReference(?string $customerReference): self
@@ -241,6 +282,7 @@ final class Invoice implements InvoiceInterface
 		$result['ownCompany'] = $this->getOwnCompany()->toArray();
 		$result['customer'] = $this->getCustomer()->toArray();
 		$result['payTerm'] = $this->getPayTerm();
+		$result['payBefore'] = $this->getPayBefore();
 		$result['isFullyPaid'] = $this->getIsFullyPaid();
 		$result['paymentConditions'] = $this->getPaymentConditions();
 		if(($oCustomerNote = $this->getCustomerNote()) instanceof Note)
@@ -261,6 +303,10 @@ final class Invoice implements InvoiceInterface
 		}
 		$result['customerReference'] = $this->getCustomerReference();
 		return $result;
+	}
+
+	final public function getPayBefore():DateTime{
+		return $this->getCreatedOn()->add($this->getPayTerm());
 	}
 
 
@@ -358,7 +404,11 @@ final class Invoice implements InvoiceInterface
 			$oCustomer = Customer::createFromArray($array['customer']);
 			$new->setCustomer($oCustomer);
 		}
-		if(isset($array['payTerm'])){
+		if(isset($array['payTerm']) && $array['payTerm'] instanceof DateInterval){
+			$new->setPayTerm($array['payTerm']);
+		}
+		elseif(isset($array['payTerm']) && is_string($array['payTerm']))
+		{
 			$oPayTerm = DateInterval::createFromDateString($array['payTerm']);
 			$new->setPayTerm($oPayTerm);
 		}

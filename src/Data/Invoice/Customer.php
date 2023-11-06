@@ -7,6 +7,7 @@ final class Customer
 	private AddressCollection $addressCollection;
 	private string $vatId;
 	private string $customerName;
+	private string $customerEmail;
 	private string $customerId;
 
 
@@ -19,6 +20,7 @@ final class Customer
 		string $customerId,
 		string $customerNumber,
 		string $customerName,
+		string $customerEmail,
 		string $vatId,
 		AddressCollection $addressCollection
 	): self {
@@ -26,6 +28,7 @@ final class Customer
 		$new->customerId = $customerId;
 		$new->customerNumber = $customerNumber;
 		$new->customerName = $customerName;
+		$new->customerEmail = $customerEmail;
 		$new->vatId = $vatId;
 		$new->addressCollection = $addressCollection;
 		return $new;
@@ -41,6 +44,7 @@ final class Customer
 		$new = new self();
 		$new->setCustomerNumber($array['customerNumber']);
 		$new->setCustomerName($array['customerName']);
+		$new->setCustomerEmail($array['customerEmail']);
 		$new->setVatId($array['vatId']);
 		$oAddressCollection = AddressCollection::createFromArray($array['addressCollection']);
 		$new->setAddressCollection($oAddressCollection);
@@ -59,12 +63,20 @@ final class Customer
 		$result['customerId'] = $this->getCustomerId();
 		$result['customerNumber'] = $this->getCustomerNumber();
 		$result['customerName'] = $this->getCustomerName();
+		$result['customerEmail'] = $this->getCustomerEmail();
 		$result['vatId'] = $this->getVatId();
-		$result['addressCollection'] = (string) $this->getAddressCollection();
+		$result['addressCollection'] = $this->getAddressCollection()->toArray();
 		return $result;
 	}
 
-
+	/**
+	 * Customer::getCustomerEmail()
+	 * @return string
+	 */
+	final public function getCustomerEmail(): string
+	{
+		return $this->customerEmail;
+	}
 	/**
 	 * Customer::getCustomerNumber()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -96,6 +108,18 @@ final class Customer
 	final public function setCustomerNumber(string $customerNumber): self
 	{
 		$this->customerNumber = $customerNumber;
+		return $this;
+	}
+
+	/**
+	 * Customer::setCustomerEmail()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param string $customerEmail
+	 * @return self
+	 */
+	final public function setCustomerEmail(string $customerEmail): self
+	{
+		$this->customerEmail = $customerEmail;
 		return $this;
 	}
 
