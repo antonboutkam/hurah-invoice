@@ -10,6 +10,17 @@ final class Address
 	private string $attnName;
 	private AddressType $addressType;
 
+	final public static function createEmpty(AddressType $oAddressType): self
+	{
+		$new = new self();
+		$new->setName('');
+		$new->setAddressLine1('');
+		$new->setAddressLine2('');
+		$new->setCountry('');
+		$new->setAttnName('');
+		$new->setAddressType($oAddressType);
+		return $new;
+	}
 
 	/**
 	 * Address::createFromArray()

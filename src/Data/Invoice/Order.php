@@ -1,26 +1,30 @@
 <?php
 namespace Hurah\Invoice\Data\Invoice;
 
+use Hurah\Types\Type\Physical\Person;
 use DateTime;
 
 final class Order
 {
 	private DateTime $createdOn;
 	private OrderItemCollection $orderItemCollection;
+	private string $number;
 
+	private Person $createdBy;
 
 	/**
 	 * Constructor
 	 * @generate [properties, getters, setters, adders, createFromArray, toArray]
 	 */
-	public static function create(OrderItemCollection $orderItemCollection, DateTime $createdOn): Order
+	public static function create(string $number, Person $createdBy, OrderItemCollection $orderItemCollection, DateTime $createdOn): Order
 	{
 		$new = new self();
+		$new->number = $number;
+		
 		$new->orderItemCollection = $orderItemCollection;
 		$new->createdOn = $createdOn;
 		return $new;
 	}
-
 
 
 	/**
@@ -31,6 +35,7 @@ final class Order
 	final public function toArray(): array
 	{
 		$result = [];
+		$result['number'] = $this->getNumber();
 		$result['orderItemCollection'] = (string) $this->getOrderItemCollection();
 		$result['createdOn'] = $this->getCreatedOn();
 		return $result;
@@ -58,26 +63,6 @@ final class Order
 	{
 		$this->createdOn = $createdOn;
 		return $this;
-	}
-
-
-	/**
-	 * Order::createFromArray()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param array $array
-	 * @return self
-	 */
-	public static function createFromArray(array $array): self
-	{
-		$new = new self();
-		if(isset($array['orderItemCollection']) && is_array($array['orderItemCollection'])){
-			$oOrderItemCollection = OrderItemCollection::make($array['orderItemCollection']);
-			$new->setOrderItemCollection($oOrderItemCollection);
-		}
-		if(isset($array['createdOn'])){
-			$new->setCreatedOn($array['createdOn']);
-		}
-		return $new;
 	}
 
 
@@ -120,6 +105,30 @@ final class Order
 		foreach($orderItemCollection as $orderItem){
 			$this->orderItemCollection->add($orderItem);
 		}
+		return $this;
+	}
+
+
+	/**
+	 * Order::getNumber()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return string
+	 */
+	final public function getNumber(): string
+	{
+		return $this->number;
+	}
+
+
+	/**
+	 * Order::setNumber()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param string $number
+	 * @return self
+	 */
+	final public function setNumber(string $number): self
+	{
+		$this->number = $number;
 		return $this;
 	}
 }

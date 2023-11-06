@@ -24,6 +24,17 @@ class AddressCollection extends AbstractCollectionDataType
     {
         return $this->array[$this->position];
     }
+	public function getByType(AddressType $type):Address
+	{
+		foreach($this as $address)
+		{
+			if($address->getAddressType()->getType() === $type->getType())
+			{
+				return $address;
+			}
+		}
+		return new Address();
+	}
     public function toArray(): array
     {
         $aOut = [];
