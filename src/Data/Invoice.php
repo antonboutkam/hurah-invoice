@@ -19,7 +19,7 @@ final class Invoice implements InvoiceInterface
 	private ?Note $customerNote = null;
 	private ?Note $ourNote = null;
 	private DateTime $createdOn;
-	private DateInterval $payTerm;
+	private ?DateInterval $payTerm = null;
 	private DateTime $payBefore;
 	private PaymentDetails $paymentDetails;
 
@@ -60,7 +60,7 @@ final class Invoice implements InvoiceInterface
 		Company $ownCompany,
 		Customer $customer,
 		DateTime $createdOn,
-		DateInterval $payTerm,
+		?DateInterval $payTerm,
 		PaymentDetails $paymentDetails,
 		bool $isFullyPaid,
 		string $paymentConditions,
@@ -326,7 +326,7 @@ final class Invoice implements InvoiceInterface
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return DateInterval
 	 */
-	final public function getPayTerm(): DateInterval
+	final public function getPayTerm(): ?DateInterval
 	{
 		return $this->payTerm;
 	}
@@ -338,7 +338,7 @@ final class Invoice implements InvoiceInterface
 	 * @param DateInterval $payTerm
 	 * @return self
 	 */
-	final public function setPayTerm(DateInterval $payTerm): self
+	final public function setPayTerm(?DateInterval $payTerm): self
 	{
 		$this->payTerm = $payTerm;
 		return $this;
