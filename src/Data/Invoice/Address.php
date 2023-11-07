@@ -4,8 +4,8 @@ namespace Hurah\Invoice\Data\Invoice;
 final class Address
 {
 	private string $name;
-	private string $addressLine1;
-	private string $addressLine2;
+	private ?string $addressLine1 = null;
+	private ?string $addressLine2 = null;
 	private string $country;
 	private string $attnName;
 	private AddressType $addressType;
@@ -111,7 +111,7 @@ final class Address
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function getAddressLine1(): string
+	final public function getAddressLine1(): ?string
 	{
 		return $this->addressLine1;
 	}
@@ -123,7 +123,7 @@ final class Address
 	 * @param string $addressLine1
 	 * @return self
 	 */
-	final public function setAddressLine1(string $addressLine1): self
+	final public function setAddressLine1(?string $addressLine1): self
 	{
 		$this->addressLine1 = $addressLine1;
 		return $this;
@@ -135,7 +135,7 @@ final class Address
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function getAddressLine2(): string
+	final public function getAddressLine2(): ?string
 	{
 		return $this->addressLine2;
 	}
@@ -147,7 +147,7 @@ final class Address
 	 * @param string $addressLine2
 	 * @return self
 	 */
-	final public function setAddressLine2(string $addressLine2): self
+	final public function setAddressLine2(?string $addressLine2): self
 	{
 		$this->addressLine2 = $addressLine2;
 		return $this;
