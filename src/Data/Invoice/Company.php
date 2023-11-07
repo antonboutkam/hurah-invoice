@@ -14,6 +14,63 @@ final class Company
 	private ?string $attnName = null;
 	private ?string $vatId = null;
 	private ?string $chamberOfCommerce = null;
+
+	/**
+	 * @return DnsName|null
+	 */
+	public function getWebsite(): ?DnsName
+	{
+		return $this->website;
+	}
+
+	/**
+	 * @param DnsName|null $website
+	 *
+	 * @return Company
+	 */
+	public function setWebsite(?DnsName $website): Company
+	{
+		$this->website = $website;
+		return $this;
+	}
+
+	/**
+	 * @return PhoneNumber|null
+	 */
+	public function getPhoneNumber(): ?PhoneNumber
+	{
+		return $this->phoneNumber;
+	}
+
+	/**
+	 * @param PhoneNumber|null $phoneNumber
+	 *
+	 * @return Company
+	 */
+	public function setPhoneNumber(?PhoneNumber $phoneNumber): Company
+	{
+		$this->phoneNumber = $phoneNumber;
+		return $this;
+	}
+
+	/**
+	 * @return Email|null
+	 */
+	public function getEmailAddress(): ?Email
+	{
+		return $this->emailAddress;
+	}
+
+	/**
+	 * @param Email|null $emailAddress
+	 *
+	 * @return Company
+	 */
+	public function setEmailAddress(?Email $emailAddress): Company
+	{
+		$this->emailAddress = $emailAddress;
+		return $this;
+	}
 	private ?DnsName $website = null;
 	private ?PhoneNumber $phoneNumber = null;
 	private ?Email $emailAddress = null;
