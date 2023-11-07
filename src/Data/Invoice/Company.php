@@ -7,7 +7,7 @@ final class Company
 	private string $addressLine1;
 	private string $addressLine2;
 	private string $country;
-	private string $attnName;
+	private ?string $attnName = null;
 	private string $vatId;
 	private string $chamberOfCommerce;
 
@@ -109,7 +109,7 @@ final class Company
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function getAttnName(): string
+	final public function getAttnName(): ?string
 	{
 		return $this->attnName;
 	}
@@ -168,10 +168,10 @@ final class Company
 	/**
 	 * Company::setAttnName()
 	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $attnName
+	 * @param ?string $attnName
 	 * @return self
 	 */
-	final public function setAttnName(string $attnName): self
+	final public function setAttnName(?string $attnName): self
 	{
 		$this->attnName = $attnName;
 		return $this;
