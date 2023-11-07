@@ -8,8 +8,8 @@ final class Company
 	private string $addressLine2;
 	private string $country;
 	private ?string $attnName = null;
-	private string $vatId;
-	private string $chamberOfCommerce;
+	private ?string $vatId = null;
+	private ?string $chamberOfCommerce = null;
 
 
 	/**
@@ -21,9 +21,9 @@ final class Company
 		string $addressLine1,
 		string $addressLine2,
 		string $country,
-		string $attnName,
-		string $vatId,
-		string $chamberOfCommerce
+		?string $attnName,
+		?string $vatId,
+		?string $chamberOfCommerce
 	):self {
 		$new = new self();
 		$new->company_name = $company_name;
@@ -61,12 +61,12 @@ final class Company
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function setChamberOfCommerce(string $chamberOfCommerce): self
+	final public function setChamberOfCommerce(?string $chamberOfCommerce): self
 	{
 		$this->chamberOfCommerce = $chamberOfCommerce;
 		return $this;
 	}
-	final public function getChamberOfCommerce(): string
+	final public function getChamberOfCommerce(): ?string
 	{
 		return $this->chamberOfCommerce;
 	}
@@ -120,7 +120,7 @@ final class Company
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function getVatId(): string
+	final public function getVatId(): ?string
 	{
 		return $this->vatId;
 	}
@@ -184,7 +184,7 @@ final class Company
 	 * @param string $vatId
 	 * @return self
 	 */
-	final public function setVatId(string $vatId): self
+	final public function setVatId(?string $vatId): self
 	{
 		$this->vatId = $vatId;
 		return $this;
