@@ -133,4 +133,8 @@ final class Note
 		$this->dateTime = $dateTime;
 		return $this;
 	}
+	public function __toString():string
+	{
+		return $this->getMessage();
+	}
 }
