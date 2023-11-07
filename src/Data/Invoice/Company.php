@@ -1,6 +1,10 @@
 <?php
 namespace Hurah\Invoice\Data\Invoice;
 
+use Hurah\Types\Type\DnsName;
+use Hurah\Types\Type\Email;
+use Hurah\Types\Type\PhoneNumber;
+
 final class Company
 {
 	private string $company_name;
@@ -10,6 +14,9 @@ final class Company
 	private ?string $attnName = null;
 	private ?string $vatId = null;
 	private ?string $chamberOfCommerce = null;
+	private ?DnsName $website = null;
+	private ?PhoneNumber $phoneNumber = null;
+	private ?Email $emailAddress = null;
 
 
 	/**
