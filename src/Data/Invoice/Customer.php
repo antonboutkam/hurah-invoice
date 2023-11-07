@@ -218,7 +218,7 @@ final class Customer
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function getCustomerId(): string
+	final public function getCustomerId(): ?string
 	{
 		return $this->customerId;
 	}
