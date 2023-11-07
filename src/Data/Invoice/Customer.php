@@ -8,7 +8,7 @@ final class Customer
 	private string $vatId;
 	private string $customerName;
 	private string $customerEmail;
-	private string $customerId;
+	private ?string $customerId = null;
 
 
 	/**
@@ -17,7 +17,7 @@ final class Customer
 	 * @return self
 	 */
 	public static function create(
-		string $customerId,
+		?string $customerId,
 		string $customerNumber,
 		string $customerName,
 		string $customerEmail,
@@ -230,7 +230,7 @@ final class Customer
 	 * @param string $customerId
 	 * @return self
 	 */
-	final public function setCustomerId(string $customerId): self
+	final public function setCustomerId(?string $customerId): self
 	{
 		$this->customerId = $customerId;
 		return $this;
