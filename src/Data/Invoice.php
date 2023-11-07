@@ -22,6 +22,8 @@ final class Invoice implements InvoiceInterface
 	private ?DateInterval $payTerm = null;
 	private DateTime $payBefore;
 	private PaymentDetails $paymentDetails;
+	private bool $isFullyPaid;
+	private string $paymentConditions;
 
 	/**
 	 * @return PaymentDetails
@@ -38,8 +40,7 @@ final class Invoice implements InvoiceInterface
 	{
 		$this->paymentDetails = $paymentDetails;
 	}
-	private bool $isFullyPaid;
-	private string $paymentConditions;
+
 
 
 	/**
