@@ -116,6 +116,11 @@ final class Company
 		$result['attnName'] = $this->getAttnName();
 		$result['chamberOfCommerce'] = $this->getChamberOfCommerce();
 		$result['vatId'] = $this->getVatId();
+		$result['website'] = $this->getWebsite();
+		$result['phoneNumber'] = $this->getPhoneNumber();
+		$result['emailAddress'] = $this->getEmailAddress();
+
+
 		return $result;
 	}
 
