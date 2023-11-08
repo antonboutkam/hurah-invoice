@@ -3,8 +3,9 @@ namespace Hurah\Invoice\Data\Invoice;
 
 final class OrderItem
 {
-	private string $description;
-	private string $subDescription;
+	private ?string $articleNumber = null;
+	private ?string $description;
+	private ?string $subDescription = null;
 	private float $unitPrice;
 	private float $quantity;
 	private int $vat;
@@ -16,14 +17,16 @@ final class OrderItem
 	 * @generate [properties, getters, setters, createFromArray, toArray]
 	 */
 	public static function create(
-		string $description,
-		string $subDescription,
+		?string $articleNumber,
+		?string $description,
+		?string $subDescription,
 		float $unitPrice,
 		string $unit,
 		float $quantity,
 		int $vat
 	): self {
 		$new = new self();
+		$new->articleNumber = $articleNumber;
 		$new->description = $description;
 		$new->subDescription = $subDescription;
 		$new->unitPrice = $unitPrice;
@@ -41,6 +44,7 @@ final class OrderItem
 	final public static function createFromArray(array $array): self
 	{
 		$new = new self();
+		$new->setArticleNumber($array['articleNumber']);
 		$new->setDescription($array['description']);
 		$new->setSubDescription($array['subDescription']);
 		$new->setUnitPrice($array['unitPrice']);
@@ -59,6 +63,7 @@ final class OrderItem
 	final public function toArray(): array
 	{
 		$result = [];
+		$result['articleNumber'] = $this->getArticleNumber();
 		$result['description'] = $this->getDescription();
 		$result['subDescription'] = $this->getSubDescription();
 		$result['unitPrice'] = $this->getUnitPrice();
@@ -74,7 +79,7 @@ final class OrderItem
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function getDescription(): string
+	final public function getDescription(): ?string
 	{
 		return $this->description;
 	}
@@ -85,7 +90,7 @@ final class OrderItem
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function getSubDescription(): string
+	final public function getSubDescription(): ?string
 	{
 		return $this->subDescription;
 	}
@@ -102,6 +107,24 @@ final class OrderItem
 	}
 
 
+	/**
+	 * @return string
+	 */
+	public function getArticleNumber(): ?string
+	{
+		return $this->articleNumber;
+	}
+
+	/**
+	 * @param string $articleNumber
+	 *
+	 * @return OrderItem
+	 */
+	public function setArticleNumber(?string $articleNumber): OrderItem
+	{
+		$this->articleNumber = $articleNumber;
+		return $this;
+	}
 	/**
 	 * OrderItem::getQuantity()
 	 * This method is automatically generated, as long as it is marked final it will be generated
@@ -130,7 +153,7 @@ final class OrderItem
 	 * @param string $description
 	 * @return self
 	 */
-	final public function setDescription(string $description): self
+	final public function setDescription(?string $description): self
 	{
 		$this->description = $description;
 		return $this;
@@ -143,7 +166,7 @@ final class OrderItem
 	 * @param string $subDescription
 	 * @return self
 	 */
-	final public function setSubDescription(string $subDescription): self
+	final public function setSubDescription(?string $subDescription): self
 	{
 		$this->subDescription = $subDescription;
 		return $this;
