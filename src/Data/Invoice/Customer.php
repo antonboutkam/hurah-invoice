@@ -34,6 +34,15 @@ final class Customer
 		return $new;
 	}
 
+	final public function getDeliveryAddress():Address
+	{
+		return $this->getAddressCollection()->getDelivery();
+	}
+
+	final public function getInvoiceAddress():Address
+	{
+		return $this->getAddressCollection()->getInvoice();
+	}
 
 	/**
 	 * Customer::createFromArray()
