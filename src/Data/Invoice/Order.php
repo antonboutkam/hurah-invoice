@@ -79,7 +79,7 @@ final class Order
 		$this->customerReference = $customerReference;
 		return $this;
 	}
-	final public function getCustomerReference(): string
+	final public function getCustomerReference(): ?string
 	{
 		return $this->customerReference;
 	}
