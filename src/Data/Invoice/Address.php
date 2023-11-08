@@ -6,8 +6,8 @@ final class Address
 	private string $name;
 	private ?string $addressLine1 = null;
 	private ?string $addressLine2 = null;
-	private string $country;
-	private string $attnName;
+	private ?string $country = null;
+	private ?string $attnName = null;
 	private AddressType $addressType;
 
 	final public static function createEmpty(AddressType $oAddressType): self
@@ -87,7 +87,7 @@ final class Address
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function getName(): string
+	final public function getName(): ?string
 	{
 		return $this->name;
 	}
@@ -159,7 +159,7 @@ final class Address
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function getCountry(): string
+	final public function getCountry(): ?string
 	{
 		return $this->country;
 	}
@@ -183,7 +183,7 @@ final class Address
 	 * This method is automatically generated, as long as it is marked final it will be generated
 	 * @return string
 	 */
-	final public function getAttnName(): string
+	final public function getAttnName(): ?string
 	{
 		return $this->attnName;
 	}
