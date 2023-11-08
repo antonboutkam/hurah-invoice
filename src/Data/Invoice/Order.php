@@ -11,7 +11,7 @@ final class Order
 	private OrderItemCollection $orderItemCollection;
 	private string $number;
 
-	private FullName $createdBy;
+	private ?FullName $createdBy = null;
 
 	private ?string $customerReference = null;
 
@@ -84,12 +84,12 @@ final class Order
 		return $this->customerReference;
 	}
 
-	final public function setCreatedBy(FullName $createdBy):self
+	final public function setCreatedBy(?FullName $createdBy):self
 	{
 		$this->createdBy = $createdBy;
 		return $this;
 	}
-	final public function getCreatedBy(): FullName
+	final public function getCreatedBy(): ?FullName
 	{
 		return $this->createdBy;
 	}
