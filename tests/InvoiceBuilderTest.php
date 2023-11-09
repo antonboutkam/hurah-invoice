@@ -81,6 +81,7 @@ class InvoiceBuilderTest extends AbstractTestCase
 		$oPaymentDetails = PaymentDetails::make(new Iban('NL38ABNA0483015741'), new Bic('ABNANL2A'));
 		$oInvoice = Invoice::create(
 			$sExpected,
+			self::createTotals(),
 			$oOrder,
 			$oOwnCompany,
 			$oCustomer,

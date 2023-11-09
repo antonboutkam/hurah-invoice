@@ -7,6 +7,8 @@ use Hurah\Types\Exception\MethodNotImplementedException;
 
 final class Environment
 {
+	private bool $bDebug = false;
+	private array $translations = [];
     private ?DnsName $assetsHostname = null;
     private ?DnsName $fileHostname = null;
     private array $extraArguments = [];
@@ -38,13 +40,23 @@ final class Environment
         throw new MethodNotImplementedException("{$name}");
 
     }
+	public function enableDebugging(bool $bDebug = true)
+	{
+		$this->bDebug = $bDebug;
+	}
+
+	public function debuggingEnabled():bool
+	{
+		return $this->bDebug;
+	}
 
     public static function init(string $assetsHostname, string $fileHostname, array $aExtraArguments = []): self
     {
         $new = new self();
-        $new->assetsHostname = new DnsName($assetsHostname);
-        $new->fileHostname = new DnsName($fileHostname);
-        $new->extraArguments = $aExtraArguments;
+        $new->setAssetsHostname(new DnsName($assetsHostname));
+        $new->setFileHostname(new DnsName($fileHostname));
+        $new->setExtraArguments($aExtraArguments);
+		$new->setTranslations($aExtraArguments['translations'] ?? []);
         return $new;
     }
 
@@ -75,6 +87,7 @@ final class Environment
         return array_merge([
             'assetsHostname' => (string)$this->getAssetsHostname(),
             'fileHostname' => (string)$this->getFileHostname(),
+			'translations' => (string)$this->getFileHostname(),
         ], $this->getExtraArguments());
     }
 
@@ -157,4 +170,22 @@ final class Environment
     {
         return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $string));
     }
+	/**
+	 * @return array
+	 */
+	final public function getTranslations(): array
+	{
+		return $this->translations;
+	}
+
+	/**
+	 * @param array $translations
+	 *
+	 * @return Environment
+	 */
+	final public function setTranslations(array $translations): Environment
+	{
+		$this->translations = $translations;
+		return $this;
+	}
 }
