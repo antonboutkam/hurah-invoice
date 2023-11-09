@@ -8,9 +8,12 @@ use Hurah\Invoice\Data\Invoice\Note;
 use Hurah\Invoice\Data\Invoice\Order;
 use Hurah\Invoice\Data\Invoice\Company;
 use Hurah\Invoice\Data\Invoice\PaymentDetails;
+use Hurah\Invoice\Data\Invoice\Totals;
+use Hurah\Types\Exception\InvalidArgumentException;
 
 final class Invoice implements InvoiceInterface
 {
+	private Totals $totals;
 	private Order $order;
 	private Customer $customer;
 	private string $number;
@@ -57,6 +60,7 @@ final class Invoice implements InvoiceInterface
 	 */
 	public static function create(
 		string $number,
+		Totals $totals,
 		Order $order,
 		Company $ownCompany,
 		Customer $customer,
@@ -72,6 +76,7 @@ final class Invoice implements InvoiceInterface
 		$new = new self();
 		$new->number = $number;
 		$new->order = $order;
+		$new->totals = $totals;
 		$new->ownCompany = $ownCompany;
 		$new->customer = $customer;
 		$new->createdOn = $createdOn;
@@ -85,17 +90,15 @@ final class Invoice implements InvoiceInterface
 		return $new;
 	}
 
-
-	/**
-	 * Invoice::getOrder()
-	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @return Order
-	 */
-	final public function getOrder(): Order
+	final public function setTotals(Totals $totals): self
 	{
-		return $this->order;
+		$this->totals = $totals;
+		return $this;
 	}
-
+	final public function getTotals(): Totals
+	{
+		return $this->totals;
+	}
 
 	/**
 	 * Invoice::setOrder()
@@ -107,6 +110,17 @@ final class Invoice implements InvoiceInterface
 	{
 		$this->order = $order;
 		return $this;
+	}
+
+
+	/**
+	 * Invoice::getOrder()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @return Order
+	 */
+	final public function getOrder(): Order
+	{
+		return $this->order;
 	}
 
 
@@ -281,6 +295,7 @@ final class Invoice implements InvoiceInterface
 		$result = [];
 		$result['number'] = $this->getNumber();
 		$result['order'] = $this->getOrder()->toArray();
+		$result['totals'] = $this->getTotals()->toArray();
 		$result['ownCompany'] = $this->getOwnCompany()->toArray();
 		$result['customer'] = $this->getCustomer()->toArray();
 		$result['payTerm'] = $this->getPayTerm();
@@ -397,6 +412,7 @@ final class Invoice implements InvoiceInterface
 	/**
 	 * Invoice::createFromArray()
 	 * Make this method final to enable code generation.
+	 * @throws InvalidArgumentException
 	 */
 	final public static function createFromArray(array $array): self
 	{
@@ -407,6 +423,10 @@ final class Invoice implements InvoiceInterface
 		if(isset($array['order'])){
 			$oOrder = Order::createFromArray($array['order']);
 			$new->setOrder($oOrder);
+		}
+		if(isset($array['totals'])){
+			$oTotals = Totals::fromArray($array['totals']);
+			$new->setTotals($oTotals);
 		}
 		if(isset($array['ownCompany'])){
 			$oOwnCompany = Company::createFromArray($array['ownCompany']);

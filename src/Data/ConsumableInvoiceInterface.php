@@ -6,6 +6,7 @@ use Hurah\Invoice\Data\Invoice\Company;
 use Hurah\Invoice\Data\Invoice\Customer;
 use Hurah\Invoice\Data\Invoice\Note;
 use Hurah\Invoice\Data\Invoice\Order;
+use Hurah\Invoice\Data\Invoice\Totals;
 
 interface ConsumableInvoiceInterface
 {
@@ -22,6 +23,8 @@ interface ConsumableInvoiceInterface
      * @return Order
      */
     public function getOrder(): Order;
+
+	public function getTotals(): Totals;
 
     /**
      * Invoice::getCustomer()

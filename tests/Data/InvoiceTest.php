@@ -14,7 +14,10 @@ class InvoiceTest extends AbstractTestCase
         $aInvoice = $this->structure->getInvoice()->toArray();
 
         $oInvoice = Invoice::createFromArray($aInvoice);
-        $this->assertEquals($this->structure->getInvoice()->getNumber(), $oInvoice->getNumber());
+
+		$this->assertEquals($this->structure->getInvoice()->getNumber(), $oInvoice->getNumber());
+
+		$this->assertInstanceOf(Invoice\Totals::class, $oInvoice->getTotals());
     }
 
 }

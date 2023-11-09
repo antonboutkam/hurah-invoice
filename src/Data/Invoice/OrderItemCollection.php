@@ -15,6 +15,7 @@ class OrderItemCollection extends AbstractCollectionDataType
         }
         return $oCollection;
     }
+
     public function add(OrderItem $oOrderItem):void
     {
         $this->array[] = $oOrderItem;

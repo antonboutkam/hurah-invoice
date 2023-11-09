@@ -9,6 +9,7 @@ final class Order
 {
 	private DateTime $createdOn;
 	private OrderItemCollection $orderItemCollection;
+	private vatCollection $vatCollection;
 	private string $number;
 
 	private ?FullName $createdBy = null;
@@ -37,16 +38,13 @@ final class Order
 		$new->number = $order['number'];
 
 		$new->orderItemCollection = OrderItemCollection::make($order['orderItemCollection']);
-		if(is_int($order['createdOn']))
-		{
+		if (is_int($order['createdOn'])) {
 			$new->createdOn = (new DateTime())->setTimestamp($order['createdOn']);
 		}
-		elseif($order['createdOn'] instanceof DateTime)
-		{
+		elseif ($order['createdOn'] instanceof DateTime) {
 			$new->createdOn = $order['createdOn'];
 		}
-		else
-		{
+		else {
 			throw new InvalidArgumentException("createdOn is empty or of an unimplemented type");
 		}
 
@@ -74,21 +72,24 @@ final class Order
 		$result['createdOn'] = $this->getCreatedOn();
 		return $result;
 	}
-	final public function setCustomerReference(string $customerReference):self
+
+	final public function setCustomerReference(string $customerReference): self
 	{
 		$this->customerReference = $customerReference;
 		return $this;
 	}
+
 	final public function getCustomerReference(): ?string
 	{
 		return $this->customerReference;
 	}
 
-	final public function setCreatedBy(?FullName $createdBy):self
+	final public function setCreatedBy(?FullName $createdBy): self
 	{
 		$this->createdBy = $createdBy;
 		return $this;
 	}
+
 	final public function getCreatedBy(): ?FullName
 	{
 		return $this->createdBy;
@@ -108,7 +109,9 @@ final class Order
 	/**
 	 * Order::setCreatedOn()
 	 * This method is automatically generated, as long as it is marked final it will be generated
+	 *
 	 * @param DateTime $createdOn
+	 *
 	 * @return self
 	 */
 	final public function setCreatedOn(DateTime $createdOn): self
@@ -116,7 +119,6 @@ final class Order
 		$this->createdOn = $createdOn;
 		return $this;
 	}
-
 
 
 	/**
@@ -133,7 +135,9 @@ final class Order
 	/**
 	 * Order::setOrderItemCollection()
 	 * This method is automatically generated, as long as it is marked final it will be generated
+	 *
 	 * @param OrderItemCollection $orderItemCollection
+	 *
 	 * @return self
 	 */
 	final public function setOrderItemCollection(OrderItemCollection $orderItemCollection): self
@@ -146,21 +150,31 @@ final class Order
 	/**
 	 * Order::addOrderItemCollection()
 	 * This method is automatically generated, as long as it is marked final it will be generated
+	 *
 	 * @param OrderItemCollection $orderItemCollection
+	 *
 	 * @return self
 	 */
 	final public function addOrderItemCollection(OrderItemCollection $orderItemCollection): self
 	{
-		if(!isset($this->orderItemCollection)){
+		if (!isset($this->orderItemCollection)) {
 			$this->orderItemCollection = new OrderItemCollection();
 		}
-		foreach($orderItemCollection as $orderItem){
+		foreach ($orderItemCollection as $orderItem) {
 			$this->orderItemCollection->add($orderItem);
 		}
 		return $this;
 	}
 
-
+	final public function getVatCollection(): VatCollection
+	{
+		return $this->vatCollection;
+	}
+	final public function setVatCollection(VatCollection $vatCollection)
+	{
+		$this->vatCollection = $vatCollection;
+		return $this;
+	}
 	/**
 	 * Order::getNumber()
 	 * This method is automatically generated, as long as it is marked final it will be generated
