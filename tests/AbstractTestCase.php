@@ -29,6 +29,8 @@ abstract class  AbstractTestCase extends TestCase
 	{
 		$oVatCollection = new VatCollection();
 		$oVatCollection->add(VatAmount::create(21, 121));
+		$oVatCollection->add(VatAmount::create(21, 121));
+		$oVatCollection->add(VatAmount::create(6, 100));
 		return Totals::create(121, 100, 21, $oVatCollection);
 	}
 	public function setUp(): void
