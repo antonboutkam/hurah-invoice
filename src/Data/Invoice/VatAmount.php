@@ -13,6 +13,7 @@ class VatAmount extends AbstractDataType implements IGenericDataType
 
 	private float $percentage;
 	private float $vatOn;
+	private float $vatDue;
 
 
 	/**
@@ -76,19 +77,24 @@ class VatAmount extends AbstractDataType implements IGenericDataType
 	 */
 	public function getVatDue(): float
 	{
-		return ($this->vatOn / 100) * $this->percentage;
+		if(empty($this->vatDue))
+		{
+			$this->vatDue = ($this->vatOn / 100) * $this->percentage;
+		}
+		return $this->vatDue;
 	}
-
-	/**
-	 * @param float $vatDue
-	 *
-	 * @return VatAmount
-	 */
-	public function setVatDue(float $vatDue): VatAmount
+	public function setVatDue(float $vatDue):void
 	{
 		$this->vatDue = $vatDue;
-		return $this;
 	}
 
+	public function toArray():array
+	{
+		return [
+			'percentage' => $this->getPercentage(),
+			'vat_on' => $this->getVatOn(),
+			'vat_due' => $this->getVatDue()
+		];
+	}
 
 }

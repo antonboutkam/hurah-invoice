@@ -24,4 +24,13 @@ class VatCollection extends AbstractCollectionDataType
 	{
 		return $this->array[$this->position];
 	}
+	public function toArray():array
+	{
+		$aOut = [];
+		foreach($this as $vatAmount)
+		{
+			$aOut[$vatAmount->getPercentage()] = $vatAmount;
+		}
+		return $aOut;
+	}
 }
