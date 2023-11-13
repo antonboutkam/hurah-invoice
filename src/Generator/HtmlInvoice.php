@@ -55,6 +55,7 @@ final class HtmlInvoice
 		$aVars = [
 			'structure' => $this->invoiceStructure,
 			'invoice' => $invoice,
+			'payment' => $invoice->getPaymentDetails(),
 			'company' => $ownCompany,
 			'customer' => $customer,
 			'order' => $order,
