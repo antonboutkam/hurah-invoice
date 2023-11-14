@@ -11,7 +11,7 @@ final class OrderItem
 	private int $vat;
 	private string $unit;
 	private string $discount;
-	private string $packaging;
+	private ?string $packaging;
 	private ?int $weight;
 
 
@@ -121,7 +121,7 @@ final class OrderItem
 	}
 
 	/**
-	 * @param string $articleNumber
+	 * @param string|null $articleNumber
 	 *
 	 * @return self
 	 */
@@ -155,7 +155,9 @@ final class OrderItem
 	/**
 	 * OrderItem::setDescription()
 	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $description
+	 *
+	 * @param string|null $description
+	 *
 	 * @return self
 	 */
 	final public function setDescription(?string $description): self
@@ -168,7 +170,9 @@ final class OrderItem
 	/**
 	 * OrderItem::setSubDescription()
 	 * This method is automatically generated, as long as it is marked final it will be generated
-	 * @param string $subDescription
+	 *
+	 * @param string|null $subDescription
+	 *
 	 * @return self
 	 */
 	final public function setSubDescription(?string $subDescription): self
@@ -243,17 +247,17 @@ final class OrderItem
 	/**
 	 * @return string
 	 */
-	final public function getPackaging(): string
+	final public function getPackaging(): ?string
 	{
 		return $this->packaging;
 	}
 
 	/**
-	 * @param string $packaging
+	 * @param string|null $packaging
 	 *
 	 * @return self
 	 */
-	final public function setPackaging(string $packaging): OrderItem
+	final public function setPackaging(?string $packaging): OrderItem
 	{
 		$this->packaging = $packaging;
 		return $this;
@@ -268,7 +272,7 @@ final class OrderItem
 	}
 
 	/**
-	 * @param int $weight
+	 * @param int|null $weight
 	 *
 	 * @return self
 	 */
@@ -279,7 +283,7 @@ final class OrderItem
 	}
 
 	/**
-	 * @return int
+	 * @return string
 	 */
 	final public function getDiscount(): string
 	{
@@ -287,7 +291,7 @@ final class OrderItem
 	}
 
 	/**
-	 * @param int $discount
+	 * @param string $discount
 	 *
 	 * @return self
 	 */
