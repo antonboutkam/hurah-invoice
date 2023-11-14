@@ -5,6 +5,7 @@ namespace Hurah\Invoice\Generator;
 use Hurah\Invoice\StructureInterface;
 use Hurah\Types\Exception\NullPointerException;
 use Hurah\Types\Type\Html;
+use Hurah\Types\Type\Path;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -71,13 +72,35 @@ final class HtmlInvoice
 	private static function addTranslateFilter(Environment $twig, \Hurah\Invoice\Data\Invoice\Environment $environment): void
 	{
 
-		$filter = new TwigFilter('translate', function ($twigEnv, $context, $string) use ($environment) {
-
+		$filter = new TwigFilter('translate', function (Environment $twigEnv, $context, $string) use ($environment) {
 			$translations = $environment->getTranslations();
+
+			if($environment->debuggingEnabled())
+			{
+				$oCacheDir = Path::make($environment->getTwigConfig()['cache']);
+				$oTranslationTemplate = $oCacheDir->extend('invoice-translate.json');
+				$sFileContents = $oTranslationTemplate->contents();
+				$aFileContents = json_decode($sFileContents);
+
+				if(isset($translations[$string]))
+				{
+					$aFileContents[$string] = $translations[$string];
+				}
+				else
+				{
+					$aFileContents[$string] = $string;
+				}
+				echo "{$string} <br>";
+				$oTranslationTemplate->write(json_encode($aFileContents));
+
+			}
+
+
 			if (isset($translations[$string])) {
 				return $translations[$string];
 			}
 			elseif ($environment->debuggingEnabled()) {
+
 				throw new NullPointerException("No translation was found for: {$string}  in (" . json_encode($translations) . ");");
 			}
 
