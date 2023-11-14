@@ -101,7 +101,7 @@ final class HtmlInvoice
 			}
 			elseif ($environment->debuggingEnabled()) {
 
-				throw new NullPointerException("No translation was found for: {$string}  in (" . json_encode($translations) . ");");
+				// throw new NullPointerException("No translation was found for: {$string}  in (" . json_encode($translations) . ");");
 			}
 
 			return $string;
