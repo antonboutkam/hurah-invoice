@@ -10,6 +10,10 @@ final class OrderItem
 	private float $quantity;
 	private int $vat;
 	private string $unit;
+	private string $packaging;
+	private int $weight;
+	private int $discount;
+
 
 
 	/**
@@ -118,7 +122,7 @@ final class OrderItem
 	/**
 	 * @param string $articleNumber
 	 *
-	 * @return OrderItem
+	 * @return self
 	 */
 	public function setArticleNumber(?string $articleNumber): OrderItem
 	{
@@ -232,6 +236,63 @@ final class OrderItem
 	final public function setUnit(string $unit): self
 	{
 		$this->unit = $unit;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	final public function getPackaging(): string
+	{
+		return $this->packaging;
+	}
+
+	/**
+	 * @param string $packaging
+	 *
+	 * @return self
+	 */
+	final public function setPackaging(string $packaging): OrderItem
+	{
+		$this->packaging = $packaging;
+		return $this;
+	}
+
+	/**
+	 * @return int
+	 */
+	final public function getWeight(): int
+	{
+		return $this->weight;
+	}
+
+	/**
+	 * @param int $weight
+	 *
+	 * @return self
+	 */
+	final public function setWeight(int $weight): OrderItem
+	{
+		$this->weight = $weight;
+		return $this;
+	}
+
+	/**
+	 * @return int
+	 */
+	final public function getDiscount(): int
+	{
+		return $this->discount;
+	}
+
+	/**
+	 * @param int $discount
+	 *
+	 * @return self
+	 */
+	final public function setDiscount(int $discount): OrderItem
+	{
+		$this->discount = $discount;
 		return $this;
 	}
 }
