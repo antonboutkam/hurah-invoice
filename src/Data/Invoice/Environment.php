@@ -42,6 +42,7 @@ final class Environment
     }
 	public function enableDebugging(bool $bDebug = true)
 	{
+		$this->twigConfig['debug'] = $bDebug;
 		$this->bDebug = $bDebug;
 	}
 

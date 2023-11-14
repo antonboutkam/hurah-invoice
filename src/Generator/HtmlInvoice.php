@@ -80,7 +80,7 @@ final class HtmlInvoice
 				$oCacheDir = Path::make($environment->getTwigConfig()['cache']);
 				$oTranslationTemplate = $oCacheDir->extend('invoice-translate.json');
 				$sFileContents = $oTranslationTemplate->contents();
-				$aFileContents = json_decode($sFileContents);
+				$aFileContents = json_decode((string)$sFileContents, true);
 
 				if(isset($translations[$string]))
 				{
@@ -90,7 +90,7 @@ final class HtmlInvoice
 				{
 					$aFileContents[$string] = $string;
 				}
-				echo "{$string} <br>";
+
 				$oTranslationTemplate->write(json_encode($aFileContents));
 
 			}
