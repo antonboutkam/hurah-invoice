@@ -12,7 +12,7 @@ final class OrderItem
 	private string $unit;
 	private string $discount;
 	private string $packaging;
-	private int $weight;
+	private ?int $weight;
 
 
 
@@ -262,7 +262,7 @@ final class OrderItem
 	/**
 	 * @return int
 	 */
-	final public function getWeight(): int
+	final public function getWeight(): ?int
 	{
 		return $this->weight;
 	}
@@ -272,7 +272,7 @@ final class OrderItem
 	 *
 	 * @return self
 	 */
-	final public function setWeight(int $weight): OrderItem
+	final public function setWeight(?int $weight): OrderItem
 	{
 		$this->weight = $weight;
 		return $this;
