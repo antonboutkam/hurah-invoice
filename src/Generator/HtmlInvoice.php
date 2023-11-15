@@ -42,7 +42,6 @@ final class HtmlInvoice
 		$config = $this->invoiceStructure->getEnvironment()->getTwigConfig();
 		$twig = new Environment($loader, $config);
 
-
 		if (isset($config['debug']) && $config['debug']) {
 			$twig->addExtension(new DebugExtension());
 		}
@@ -71,7 +70,6 @@ final class HtmlInvoice
 
 	private static function addTranslateFilter(Environment $twig, \Hurah\Invoice\Data\Invoice\Environment $environment): void
 	{
-
 		$filter = new TwigFilter('translate', function (Environment $twigEnv, $context, $string) use ($environment) {
 			$translations = $environment->getTranslations();
 
@@ -94,11 +92,8 @@ final class HtmlInvoice
 				{
 					$aFileContents[$string] = $string;
 				}
-
 				$oTranslationTemplate->write(json_encode($aFileContents));
-
 			}
-
 
 			if (isset($translations[$string])) {
 				return $translations[$string];
