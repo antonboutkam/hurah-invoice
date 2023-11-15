@@ -79,6 +79,10 @@ final class HtmlInvoice
 			{
 				$oCacheDir = Path::make($environment->getTwigConfig()['cache']);
 				$oTranslationTemplate = $oCacheDir->extend('invoice-translate.json');
+				if(!$oTranslationTemplate->exists())
+				{
+					$oTranslationTemplate->write('{}');
+				}
 				$sFileContents = $oTranslationTemplate->contents();
 				$aFileContents = json_decode((string)$sFileContents, true);
 
@@ -101,7 +105,7 @@ final class HtmlInvoice
 			}
 			elseif ($environment->debuggingEnabled()) {
 
-				// throw new NullPointerException("No translation was found for: {$string}  in (" . json_encode($translations) . ");");
+				throw new NullPointerException("No translation was found for: {$string}  in (" . json_encode($translations) . ");");
 			}
 
 			return $string;

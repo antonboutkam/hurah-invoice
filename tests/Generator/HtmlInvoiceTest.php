@@ -36,5 +36,5 @@ class HtmlInvoiceTest extends AbstractTestCase
 
 	}
 
-	public function test__construct() {}
+
 }

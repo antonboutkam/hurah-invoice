@@ -19,8 +19,8 @@ final class Invoice implements InvoiceInterface
 	private string $number;
 	private ?string $customerReference = null;
 	private Company $ownCompany;
-	private ?Note $customerNote = null;
-	private ?Note $ourNote = null;
+	private ?Note $customerNote;
+	private ?Note $ourNote;
 	private DateTime $createdOn;
 	private ?DateInterval $payTerm = null;
 	private DateTime $payBefore;
@@ -51,6 +51,13 @@ final class Invoice implements InvoiceInterface
 	 */
 	public function __construct()
 	{
+		$this->order = new Order();
+		$this->totals = new Totals();
+		$this->ownCompany = new Company();
+		$this->customer = new Customer();
+		$this->paymentDetails = new PaymentDetails();
+		$this->customerNote = null;
+		$this->ourNote = null;
 	}
 
 
@@ -302,6 +309,7 @@ final class Invoice implements InvoiceInterface
 		$result['payBefore'] = $this->getPayBefore();
 		$result['isFullyPaid'] = $this->getIsFullyPaid();
 		$result['paymentConditions'] = $this->getPaymentConditions();
+
 		if(($oCustomerNote = $this->getCustomerNote()) instanceof Note)
 		{
 			$result['customerNote'] = $oCustomerNote->toArray();

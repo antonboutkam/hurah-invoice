@@ -2,10 +2,11 @@
 namespace Hurah\Invoice\Data\Invoice;
 
 use \DateTime;
+use Hurah\Types\Type\PlainText;
 
 final class Note
 {
-	private string $message;
+	private PlainText $message;
 	private ?string $from;
 	private ?DateTime $dateTime;
 
@@ -15,6 +16,7 @@ final class Note
 	 */
 	public function __construct()
 	{
+		$this->message = new PlainText();
 	}
 
 
@@ -22,10 +24,10 @@ final class Note
 	 * Note::create()
 	 * @generate [properties, getters, setters, adders, createFromArray, toArray]
 	 */
-	public static function create(string $message, string $from = null, DateTime $dateTime = null): self
+	public static function create(?string $message, string $from = null, DateTime $dateTime = null): self
 	{
 		$new = new self();
-		$new->message = $message;
+		$new->message = new PlainText($message);
 		$new->from = $from;
 		$new->dateTime = $dateTime;
 		return $new;
@@ -62,6 +64,16 @@ final class Note
 		];
 	}
 
+	/**
+	 * @param string $line
+	 *
+	 * @return $this
+	 */
+	public final function appendLn(string $line):self
+	{
+		$this->message->addLn($line);
+		return $this;
+	}
 
 	/**
 	 * Note::getMessage()
@@ -70,7 +82,7 @@ final class Note
 	 */
 	final public function getMessage(): string
 	{
-		return $this->message;
+		return (string) $this->message;
 	}
 
 
@@ -104,10 +116,29 @@ final class Note
 	 */
 	final public function setMessage(string $message): self
 	{
-		$this->message = $message;
+		$this->message->setValue($message);
 		return $this;
 	}
 
+	final public function append(string ...$message):self
+	{
+		$this->message->append($message);
+		return $this;
+	}
+
+
+	/**
+	 * Note::setMessage()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param string $message
+	 * @return self
+	 */
+	final public function addLn(string $message): self
+	{
+
+		$this->message->addLn($message);
+		return $this;
+	}
 
 	/**
 	 * Note::setFrom()
