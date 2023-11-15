@@ -9,10 +9,10 @@ final class OrderItem
 	private float $unitPrice;
 	private float $quantity;
 	private int $vat;
-	private string $unit;
-	private string $discount;
-	private ?string $packaging;
-	private ?int $weight;
+	private ?string $unit = null;
+	private ?string $discount = null;
+	private ?string $packaging = null;
+	private ?int $weight = null;
 
 
 
@@ -238,7 +238,7 @@ final class OrderItem
 	 * @param string $unit
 	 * @return self
 	 */
-	final public function setUnit(string $unit): self
+	final public function setUnit(?string $unit): self
 	{
 		$this->unit = $unit;
 		return $this;
@@ -295,7 +295,7 @@ final class OrderItem
 	 *
 	 * @return self
 	 */
-	final public function setDiscount(string $discount): OrderItem
+	final public function setDiscount(?string $discount): OrderItem
 	{
 		$this->discount = $discount;
 		return $this;
