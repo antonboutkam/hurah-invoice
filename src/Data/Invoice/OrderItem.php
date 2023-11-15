@@ -285,7 +285,7 @@ final class OrderItem
 	/**
 	 * @return string
 	 */
-	final public function getDiscount(): string
+	final public function getDiscount(): ?string
 	{
 		return $this->discount;
 	}
