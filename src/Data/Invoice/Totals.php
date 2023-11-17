@@ -1,12 +1,19 @@
 <?php
 namespace Hurah\Invoice\Data\Invoice;
 
+use Hurah\Invoice\Data\Invoice\Totals\Discount;
+use Hurah\Invoice\Data\Invoice\Totals\DiscountCollection;
+use Hurah\Invoice\Data\Invoice\Totals\VatAmount;
+use Hurah\Invoice\Data\Invoice\Totals\VatCollection;
+
 final class Totals
 {
-	private VatCollection $vatCollection;
+
 	private float $totalsExVat;
 	private float $totalsIncVat;
 	private float $totalsVat;
+	private DiscountCollection $discountCollection;
+	private VatCollection $vatCollection;
 
 	/**
 	 * Constructor
@@ -15,6 +22,7 @@ final class Totals
 	public function __construct()
 	{
 		$this->vatCollection = new VatCollection();
+		$this->discountCollection = new DiscountCollection();
 	}
 
 	public static final function create(float $totalsIncVat, float $totalsExVat, float $totalsVat, VatCollection $vatCollection): self
@@ -36,7 +44,8 @@ final class Totals
 			'totalsExVat' => $this->getTotalsExVat(),
 			'totalsIncVat' => $this->getTotalsIncVat(),
 			'totalsVat' => $this->getTotalsVat(),
-			'vatCollection' => $this->getVatCollection()
+			'vatCollection' => $this->getVatCollection(),
+			'discountCollection' => $this->getDiscountCollection()
 		];
 	}
 
@@ -63,6 +72,10 @@ final class Totals
 		if(isset($aData['vatCollection']))
 		{
 			$new->setVatCollection($aData['vatCollection']);
+		}
+		if(isset($aData['discountCollection']))
+		{
+			$new->setDiscountCollection($aData['discountCollection']);
 		}
 		return $new;
 	}
@@ -142,6 +155,10 @@ final class Totals
 		$this->totalsVat = $totalsVat;
 		return $this;
 	}
+	public function addDiscountLine(Discount $discount)
+	{
+		$this->discountCollection->add($discount);
+	}
 	public function addVatLine(VatAmount $vat)
 	{
 		$this->vatCollection->add($vat);
@@ -156,4 +173,22 @@ final class Totals
 		return array_sum($aSum);
 	}
 
+	/**
+	 * @return DiscountCollection
+	 */
+	public function getDiscountCollection(): DiscountCollection
+	{
+		return $this->discountCollection;
+	}
+
+	/**
+	 * @param DiscountCollection $discountCollection
+	 *
+	 * @return Totals
+	 */
+	public function setDiscountCollection(DiscountCollection $discountCollection): Totals
+	{
+		$this->discountCollection = $discountCollection;
+		return $this;
+	}
 }

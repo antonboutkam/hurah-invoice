@@ -1,6 +1,6 @@
 <?php
 
-namespace Hurah\Invoice\Data\Invoice;
+namespace Hurah\Invoice\Data\Invoice\Totals;
 
 use Hurah\Types\Type\AbstractCollectionDataType;
 

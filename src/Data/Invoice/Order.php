@@ -1,9 +1,10 @@
 <?php
 namespace Hurah\Invoice\Data\Invoice;
 
+use DateTime;
+use Hurah\Invoice\Data\Invoice\Totals\VatCollection;
 use Hurah\Types\Exception\InvalidArgumentException;
 use Hurah\Types\Type\Physical\Person\FullName;
-use DateTime;
 
 final class Order
 {
