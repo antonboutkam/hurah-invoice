@@ -37,9 +37,13 @@ final class Pdf implements InvoiceDocumentTypeInterface
 
 
 	/**
+	 * @param Html $input
+	 * @param array $aOptions
+	 *
+	 * @return string
 	 * @throws InvalidArgumentException
 	 */
-	public function convert(Html $input): string
+	public function convert(Html $input, array $aOptions = []): string
 	{
 		$oTmpDir = Path::make($this->tmpdir);
 		$sHtml = $input->getValue();
@@ -49,6 +53,16 @@ final class Pdf implements InvoiceDocumentTypeInterface
 
 		$oSnappy = new \Knp\Snappy\Pdf();
 		$oSnappy->setBinary($this->wkhtmltopdfbin);
+
+		if(is_array($aOptions))
+		{
+			foreach($aOptions as $key => $value)
+			{
+				$oSnappy->setOption($key, $value);
+			}
+		}
+
+
 		return $oSnappy->getOutput((string) $oTmpDestination);
 	}
 }

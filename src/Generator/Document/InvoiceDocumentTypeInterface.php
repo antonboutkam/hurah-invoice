@@ -13,6 +13,6 @@ interface InvoiceDocumentTypeInterface
      */
     public function getContentType(): string;
 
-    public function convert(Html $input):string;
+    public function convert(Html $input, array $aOptions = []):string;
 
 }

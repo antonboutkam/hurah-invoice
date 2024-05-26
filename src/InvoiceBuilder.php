@@ -93,7 +93,13 @@ final class InvoiceBuilder
 	{
 		$oHtmlInvoice = new HtmlInvoice($this->invoiceStructure, $this->twigTemplate);
 		$oHtml = $oHtmlInvoice->render();
-		$oMixedInvoice = $this->invoiceType->convert($oHtml);
+		$aOptions = [
+			'header-html' => $this->twigHeaderTemplate,
+			'footer-html' => $this->twigFooterTemplate
+		];
+
+
+		$oMixedInvoice = $this->invoiceType->convert($oHtml, $aOptions);
         $this->handler->setType($this->invoiceType);
 		return $this->handler->handle($oMixedInvoice);
 	}

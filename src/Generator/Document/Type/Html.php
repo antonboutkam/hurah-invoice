@@ -21,7 +21,7 @@ final class Html implements InvoiceDocumentTypeInterface
 	}
 
 
-	public function convert(HtmlDataType $input): string
+	public function convert(HtmlDataType $input, array $aOptions = []): string
 	{
 		return $input->getValue();
 	}
