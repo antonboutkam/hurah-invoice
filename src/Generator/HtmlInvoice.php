@@ -29,11 +29,11 @@ final class HtmlInvoice
 	}
 
 	/**
-	 * @throws SyntaxError
 	 * @throws RuntimeError
+	 * @throws SyntaxError
 	 * @throws LoaderError
 	 */
-	public function render(): Html
+	public function renderAsPlain(): string
 	{
 		$loader = new ArrayLoader([
 			'invoice.twig' => $this->twigTemplate,
@@ -65,7 +65,18 @@ final class HtmlInvoice
 				'customer' => $invoice->getOurNote(),
 			],
 		];
-		return new Html($twig->render('invoice.twig', $aVars));
+		return $twig->render('invoice.twig', $aVars);
+	}
+
+	/**
+	 * @throws SyntaxError
+	 * @throws RuntimeError
+	 * @throws LoaderError
+	 */
+	public function render(): Html
+	{
+		$string = $this->renderAsPlain();
+		return new Html($string);
 	}
 
 	private static function addTranslateFilter(Environment $twig, \Hurah\Invoice\Data\Invoice\Environment $environment): void

@@ -105,13 +105,13 @@ final class InvoiceBuilder
 		if($this->twigHeaderTemplate)
 		{
 			$oTwigHeaderTemplate = new HtmlInvoice($this->invoiceStructure, $this->twigHeaderTemplate);
-			$aOptions['header-html'] = $oTwigHeaderTemplate->render()->getValue();
+			$aOptions['header-html'] = $oTwigHeaderTemplate->renderAsPlain();
 		}
 
 		if($this->twigFooterTemplate)
 		{
 			$oTwigFooterTemplate = new HtmlInvoice($this->invoiceStructure, $this->twigFooterTemplate);
-			$aOptions['footer-html'] = $oTwigFooterTemplate->render()->getValue();
+			$aOptions['footer-html'] = $oTwigFooterTemplate->renderAsPlain();
 		}
 
 
