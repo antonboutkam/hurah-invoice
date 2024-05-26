@@ -9,6 +9,9 @@ use Hurah\Invoice\Generator\Result\Handler\Download;
 use Hurah\Invoice\Generator\Result\ResultHandlerInterface as ResultHandler;
 use Hurah\Types\Exception\InvalidArgumentException;
 use Hurah\Types\Type\Path;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 final class InvoiceBuilder
 {
@@ -89,16 +92,30 @@ final class InvoiceBuilder
 	}
 
 
+	/**
+	 * @throws RuntimeError
+	 * @throws LoaderError
+	 * @throws SyntaxError
+	 */
 	public function makeInvoice(): string
 	{
 		$oHtmlInvoice = new HtmlInvoice($this->invoiceStructure, $this->twigTemplate);
+		$aOptions = [];
+
+		if($this->twigHeaderTemplate)
+		{
+			$oTwigHeaderTemplate = new HtmlInvoice($this->invoiceStructure, $this->twigHeaderTemplate);
+			$aOptions['header-html'] = $oTwigHeaderTemplate->render();
+		}
+
+		if($this->twigFooterTemplate)
+		{
+			$oTwigFooterTemplate = new HtmlInvoice($this->invoiceStructure, $this->twigFooterTemplate);
+			$aOptions['footer-html'] = $oTwigFooterTemplate->render();
+		}
+
+
 		$oHtml = $oHtmlInvoice->render();
-		$aOptions = [
-			'header-html' => $this->twigHeaderTemplate,
-			'footer-html' => $this->twigFooterTemplate
-		];
-
-
 		$oMixedInvoice = $this->invoiceType->convert($oHtml, $aOptions);
         $this->handler->setType($this->invoiceType);
 		return $this->handler->handle($oMixedInvoice);
