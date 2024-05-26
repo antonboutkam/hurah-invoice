@@ -14,6 +14,10 @@ final class InvoiceBuilder
 {
 	private StructureInterface $invoiceStructure;
 	private string $twigTemplate;
+
+	private string $twigHeaderTemplate;
+
+	private string $twigFooterTemplate;
 	private Type $invoiceType;
 	private ResultHandler $handler;
 
@@ -107,7 +111,41 @@ final class InvoiceBuilder
 		return $this;
 	}
 
-    final public function getTwigTemplate(): string
+	/**
+	 * InvoiceBuilder::setTwigTemplate()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param string $twigTemplate
+	 * @return self
+	 */
+	final public function setTwigHeaderTemplate(string $twigTemplate): self
+	{
+		$this->twigHeaderTemplate = $twigTemplate;
+		return $this;
+	}
+
+	/**
+	 * InvoiceBuilder::setTwigTemplate()
+	 * This method is automatically generated, as long as it is marked final it will be generated
+	 * @param string $twigTemplate
+	 * @return self
+	 */
+	final public function setTwigFooterTemplate(string $twigTemplate): self
+	{
+		$this->twigFooterTemplate = $twigTemplate;
+		return $this;
+	}
+
+	public function getHeaderTemplate():string
+	{
+		return $this->twigHeaderTemplate;
+	}
+
+	public function getFooterTemplate():string
+	{
+		return $this->twigFooterTemplate;
+	}
+
+	final public function getTwigTemplate(): string
     {
         return $this->twigTemplate;
     }
