@@ -1,7 +1,9 @@
 <?php
 namespace Hurah\Invoice\Data\Invoice;
 
-final class OrderItem
+use Hurah\Types\Type\IGenericDataType;
+
+final class OrderItem implements IGenericDataType
 {
 	private ?string $articleNumber = null;
 	private ?string $description;
@@ -299,5 +301,22 @@ final class OrderItem
 	{
 		$this->discount = $discount;
 		return $this;
+	}
+
+	public function __construct($sValue = null) {}
+
+	public function __toString(): string
+	{
+		return json_encode($this);
+	}
+
+	public function setValue($sValue)
+	{
+		// TODO: Implement setValue() method.
+	}
+
+	public function getValue()
+	{
+		// TODO: Implement getValue() method.
 	}
 }

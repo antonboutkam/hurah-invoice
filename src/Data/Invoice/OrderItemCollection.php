@@ -2,6 +2,7 @@
 namespace Hurah\Invoice\Data\Invoice;
 
 use Hurah\Types\Type\AbstractCollectionDataType;
+use Hurah\Types\Type\IGenericDataType;
 
 class OrderItemCollection extends AbstractCollectionDataType
 {
@@ -20,7 +21,11 @@ class OrderItemCollection extends AbstractCollectionDataType
     {
         $this->array[] = $oOrderItem;
     }
-    public function current(): OrderItem
+
+	/**
+	 * @return OrderItem
+	 */
+    public function current(): IGenericDataType
     {
         return $this->array[$this->position];
     }

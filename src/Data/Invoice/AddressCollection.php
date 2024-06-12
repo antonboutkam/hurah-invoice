@@ -3,6 +3,7 @@ namespace Hurah\Invoice\Data\Invoice;
 
 use Hurah\Invoice\Data\Invoice\Address;
 use Hurah\Types\Type\AbstractCollectionDataType;
+use Hurah\Types\Type\IGenericDataType;
 
 class AddressCollection extends AbstractCollectionDataType
 {
@@ -20,8 +21,12 @@ class AddressCollection extends AbstractCollectionDataType
     {
         $this->array[] = $oAddress;
     }
-    public function current(): Address
-    {
+
+	/**
+	 * @return Address
+	 */
+    public function current(): IGenericDataType
+	{
         return $this->array[$this->position];
     }
 	public function getDelivery():Address
