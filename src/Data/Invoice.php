@@ -23,7 +23,7 @@ final class Invoice implements InvoiceInterface
 	private ?Note $ourNote;
 	private DateTime $createdOn;
 	private ?DateInterval $payTerm = null;
-	private DateTime $payBefore;
+	private ?DateTime $payBefore = null;
 	private PaymentDetails $paymentDetails;
 	private bool $isFullyPaid;
 	private string $paymentConditions;
@@ -333,12 +333,16 @@ final class Invoice implements InvoiceInterface
 	final public function getPayBefore():DateTime{
 		if(!isset($this->payBefore))
 		{
-			$this->payBefore = $this->getCreatedOn()->add($this->getPayTerm());
+			$this->payBefore = $this->getCreatedOn();
+			if($this->getPayTerm())
+			{
+				$this->payBefore = $this->payBefore->add($this->getPayTerm());
+			}
 		}
 		return $this->payBefore;
 	}
 
-	final public function setPayBefore(DateTime $payBefore): self
+	final public function setPayBefore(?DateTime $payBefore = null): self
 	{
 		$this->payBefore = $payBefore;
 		return $this;
