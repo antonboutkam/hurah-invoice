@@ -9,6 +9,7 @@ final class OrderItem implements IGenericDataType
 	private ?string $description;
 	private ?string $subDescription = null;
 	private float $unitPrice;
+	private ?float $originalUnitPrice = null;
 	private float $quantity;
 	private int $vat;
 	private ?string $unit = null;
@@ -183,6 +184,22 @@ final class OrderItem implements IGenericDataType
 		return $this;
 	}
 
+	final public function hasOriginalUnitPrice(): bool
+	{
+		return $this->originalUnitPrice != null;
+	}
+
+
+	final public function getOriginalUnitPrice(): ?float
+	{
+		return $this->originalUnitPrice;
+	}
+
+	final public function setOriginalUnitPrice(float $originalUnitPrice): self
+	{
+		$this->originalUnitPrice = $originalUnitPrice;
+		return $this;
+	}
 
 	/**
 	 * OrderItem::setUnitPrice()
