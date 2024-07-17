@@ -21,13 +21,7 @@ final class Environment
     /**
      * Environment::__construct()
      */
-    public function __construct()
-    {
-		$oCurrentDir = Path::make(__DIR__);
-		$oRootDir = $oCurrentDir->dirname(3);
-		$oTwigCacheDir = $oRootDir->extend('data', 'tmp', 'twig')->makeDir();
-		$this->twigConfig['cache'] = (string) $oTwigCacheDir;
-    }
+    public function __construct() {}
 
     public function __call(string $name, array $arguments)
     {
