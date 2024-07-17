@@ -36,6 +36,10 @@ final class Pdf implements InvoiceDocumentTypeInterface
 	}
 
 
+	public function setWkHtmlToPdfLocation(string $wkHtmlToPdf):void{
+		$this->wkhtmltopdfbin = $wkHtmlToPdf;
+	}
+
 	/**
 	 * @param Html $input
 	 * @param array $aOptions

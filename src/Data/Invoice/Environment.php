@@ -4,6 +4,7 @@ namespace Hurah\Invoice\Data\Invoice;
 
 use Hurah\Types\Type\DnsName;
 use Hurah\Types\Exception\MethodNotImplementedException;
+use Hurah\Types\Type\Path;
 
 final class Environment
 {
@@ -22,11 +23,15 @@ final class Environment
      */
     public function __construct()
     {
+		$oCurrentDir = Path::make(__DIR__);
+		$oRootDir = $oCurrentDir->dirname(3);
+		$oTwigCacheDir = $oRootDir->extend('data', 'tmp', 'twig')->makeDir();
+		$this->twigConfig['cache'] = (string) $oTwigCacheDir;
     }
 
     public function __call(string $name, array $arguments)
     {
-        if (strpos($name, 'get') === 0) {
+        if (str_starts_with($name, 'get')) {
 
             $camelName = str_replace('get', '', $name);
             $snakeName = $this->camelCaseToSnakeCase($camelName);
@@ -158,8 +163,8 @@ final class Environment
         return $this;
     }
 
-    final public function setTwigConfig(array $aConfig)
-    {
+    final public function setTwigConfig(array $aConfig): void
+	{
         $this->twigConfig = $aConfig;
     }
     final public function getTwigConfig():array
